@@ -1,6 +1,11 @@
 package tutorials.trees;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.ByteBuffer;
 import java.util.Deque ; 
 import java.util.ArrayList; 
 import java.util.LinkedList;
@@ -281,7 +286,7 @@ public class BinaryTree {
 	}
 	
 	
-	protected static BinaryTree findMaxBstSubtreeTopDown(BinaryTree tree)
+	public static BinaryTree findMaxBstSubtreeTopDown(BinaryTree tree)
 	{
 		if( tree == null )
 			return null ; 
@@ -522,9 +527,6 @@ public class BinaryTree {
 	
 	
 	
-	
-	
-	
 	public static void postOrderTraversalRecursive(BinaryTree tree){
 	
 		if( tree == null )
@@ -596,157 +598,145 @@ public class BinaryTree {
 			}	
 			prev = curr ; 
 		}
-				
 	}
 		
-
 	
 	
 	
-	
-	
-	
-	
-		
-	public static BinaryTree createTwoLevelBinaryTree(){
-		
-		BinaryTree root = new BinaryTree(5); 
-		root.right  = new BinaryTree(7); 
-		return root ; 
-	}
-	
-	
-	
-	
-	public static BinaryTree createThreeLevelBinaryTree(){
-		
-		BinaryTree root = new BinaryTree(10); 
-		root.left  = new BinaryTree(5); 
-		root.right = new BinaryTree(15); 
-		root.left.left   = new BinaryTree(1); 
-		root.left.right  = new BinaryTree(8); 
-		root.right.right = new BinaryTree(17); 
-	
-		return root ; 
-	}
-	
-	
-	
-	public static BinaryTree createFourLevelBinaryTree(){
-		
-		BinaryTree root = new BinaryTree(5); 
-		root.left  = new BinaryTree(3); 
-		root.right = new BinaryTree(25); 
-		root.left.left   = new BinaryTree(2); 
-		root.left.right  = new BinaryTree(4); 
-		root.right.left  = new BinaryTree(11); 
-		root.right.left.right = new BinaryTree(20);
-		root.right.left.left  = new BinaryTree(19);
-		
-		return root ; 
-	}
-	
-	
-	
-	public static BinaryTree createFiveLevelBinaryTree() {
-		
-		BinaryTree root = new BinaryTree(5); 
-		root.left  = new BinaryTree(7); 
-		root.right = new BinaryTree(8); 
-		root.left.left   = new BinaryTree(9); 
-		root.left.right  = new BinaryTree(10); 
-		root.right.left  = new BinaryTree(11); 
-		root.right.left.right = new BinaryTree(20);
-		root.right.left.left  = new BinaryTree(19);
-		root.right.left.left.right = new BinaryTree(50); 
-		root.right.right = new BinaryTree(12); 
-		root.left.left.left = new BinaryTree(13); 	
-		root.left.left.right = new BinaryTree(14); 	
-		root.left.left.right.left = new BinaryTree(37); 
-		root.left.left.right.left.right = new BinaryTree(87); 
-		
-		return root ; 
-	}
-	
-	
-	
-	public static void testTreePrinting(){
-		
-		int margin = 5 ; 
-		PrintStream out = System.out ; 
-		BinaryTree tree ; 
-		
-//		BinaryTree tree = createTwoLevelBinaryTree(); 	
-//		tree = createThreeLevelBinaryTree(); 		
-//		tree = createThreeLevelBinaryTree(); 		
-		tree = createFourLevelBinaryTree(); 
-		
-		out.println("Current binary tree:");
-		tree.prettyPrint(margin, System.out);
-		out.println("Tree Size = " + tree.size());
-		out.println("Is Bst ? = " + tree.isBinarySearchTree());  
-		
-		
-		BinaryTree maxBst = findMaxBst(tree); 
-		out.println("The maximum binary tree: ");
-		if(maxBst != null)
-			maxBst.prettyPrint(margin, out);
-		else 
-			out.println("Max bst not found"); 
-		
-		BinaryTree maxBstSubtree = findMaxBstSubtreeTopDown(tree); 
-		out.println("The maximum binary tree subtree (Top down):");
-		if(maxBstSubtree != null)
-			maxBstSubtree.prettyPrint(margin, out);
-		else 
-			out.println("Max bst subtree not found"); 
-		
-		
-	    maxBstSubtree = findMaxBstSubtreeBottomUp(tree); 
-		out.println("The maximum binary tree subtree (Bottom up):");
-		if(maxBstSubtree != null)
-			maxBstSubtree.prettyPrint(margin, out);
-		else 
-			out.println("Max bst subtree not found"); 
-	}
-	
-	
-	
-	
-	
-	public static void testTreeBoundaryView(){
-		
-		int margin = 5 ;  
-		BinaryTree tree = createFiveLevelBinaryTree(); 
-		tree.prettyPrint(margin, System.out); 
-		
-		printLeftView(tree); 
-		printRightView(tree);
-		printRightViewBottomUp(tree); 
-		
-	}
-	
-	
-	
-	public static void testTreeTraversal(){
-		
-		int margin = 5 ;  
-		BinaryTree tree = createFiveLevelBinaryTree(); 
-		tree.prettyPrint(margin, System.out); 
-		
-		System.out.println("Recursive post order traversal:");
-		postOrderTraversalRecursive(tree); 
-		
-		System.out.println("\nIterative post order traversal:"); 
-		postOrderTraversalIterative(tree); 
-	}
-	
-	
-	
-	
-	public static void main(String[] args)
+	public static void serializeBinarySearchTree(BinaryTree bst, String bstFilePath)
 	{
-		testTreeTraversal(); 
-	} 
+		
+		FileOutputStream outStream  ; 
+		try{ 
+			
+			outStream = new FileOutputStream( new File(bstFilePath) ); 
+			
+			if(bst == null ){
+				outStream.close(); 
+				return ; 
+			}
+			
+			serializeBinarySearchTree(bst, outStream); 
+			outStream.close(); 
+				
+		}catch(IOException e){
+			e.printStackTrace();
+		}			
+	}
+	
+	
+	
+	
+	protected static void serializeBinarySearchTree(BinaryTree bst, FileOutputStream outStream)
+	{
+		if( bst == null)
+			return ; 
+		
+		ByteBuffer buffer = ByteBuffer.allocate(4);
+		buffer.putInt(bst.value); 
+		try {
+			outStream.write(buffer.array());
+			serializeBinarySearchTree(bst.left, outStream); 
+			serializeBinarySearchTree(bst.right, outStream);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 		
+	}
+	
+	
+	
+	
+	public static BinaryTree deserializeBinarySearchTree(String bstFilePath)
+	{
+		FileInputStream inStream  ;  
+		BinaryTree bst = null ; 
+		_<Integer> val = new _<Integer>(); 	
+		
+		try{  
+			
+			inStream = new FileInputStream( new File(bstFilePath) );  
+			if( readIntValueFromStream(inStream, val) == -1){
+				inStream.close(); 
+				return null ; 
+			}
+							
+			bst = deserializeBinarySearchTree(inStream, val, Integer.MIN_VALUE, Integer.MAX_VALUE); 
+			inStream.close(); 
+
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+		return bst ; 	
+		                     
+
+	}
+	
+	
+	
+	
+	protected static BinaryTree deserializeBinarySearchTree(FileInputStream inStream, _<Integer> insertValue, int minValue, int maxValue){
+		
+		try {
+			
+			int value = insertValue.value(); 
+			if( value > minValue && value < maxValue ){
+				
+				BinaryTree tree = new BinaryTree(value);  
+				
+				if( readIntValueFromStream(inStream, insertValue) == -1){
+					inStream.close(); 
+					return tree ; 
+				}
+				
+				tree.left  = deserializeBinarySearchTree(inStream,   insertValue,   minValue,     value); 
+				tree.right = deserializeBinarySearchTree(inStream,   insertValue,   value,     maxValue); 
+				return tree ; 
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+		return null ; 
+	}
+	
+	
+	
+	
+	
+	/**
+	 *  Read an integer from the given FileInputStream 'inStream' 
+	 *  If the stream reaches its end, returns -1; 
+	 * 
+	 * @param inStream
+	 * @param value - the integer value read from the stream 
+	 * @return
+	 */
+	protected static int readIntValueFromStream(FileInputStream inStream, _<Integer> value)
+	{		
+		int numBytesInInt=4, ret=-1 ;   
+		byte[]  buffer = {0,0,0,0};    
+
+		try {
+				
+			int nBytes = inStream.read(buffer);
+			if( nBytes == -1){
+				ret = -1;  
+			}else {
+				ByteBuffer byteBuffer = ByteBuffer.allocate(numBytesInInt);
+				for(int i=0; i<numBytesInInt; i++)
+					byteBuffer.put(i, buffer[i]);
+				value.set(byteBuffer.getInt()); 
+				ret = 0; 
+			}			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ret;  
+	}
+	
+	
 	
 }
