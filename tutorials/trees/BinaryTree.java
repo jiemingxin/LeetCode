@@ -3,12 +3,15 @@ package tutorials.trees;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.ByteBuffer;
 import java.util.Deque ; 
 import java.util.ArrayList; 
 import java.util.LinkedList;
+import java.util.Scanner;
 import java.util.Stack;
 
 import tutorials.utils._;
@@ -675,7 +678,8 @@ public class BinaryTree {
 	
 	
 	
-	protected static BinaryTree deserializeBinarySearchTree(FileInputStream inStream, _<Integer> insertValue, int minValue, int maxValue){
+	protected static BinaryTree deserializeBinarySearchTree(FileInputStream inStream, 
+			_<Integer> insertValue, int minValue, int maxValue){
 		
 		try {
 			
@@ -731,7 +735,6 @@ public class BinaryTree {
 			}			
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return ret;  
@@ -739,4 +742,71 @@ public class BinaryTree {
 	
 	
 	
+	
+	/**
+	 *  Serialize a given binary tree, we need a padding "#" to represent the NULL values 
+	 * 
+	 * @param bst
+	 * @param bstFilePath
+	 */
+     public static void serializeBinaryTree(BinaryTree tree, String filePath){
+    	 
+		try {
+			FileWriter writer = new FileWriter(new File(filePath)); 
+			serializeBinaryTree(tree, writer); 
+			writer.close(); 
+    		  
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+     }
+	
+	
+     protected static void serializeBinaryTree(BinaryTree tree, FileWriter writer) throws IOException
+     {
+    	 if(tree == null){
+    		 writer.write("# "); 
+    	 }else{
+    		 writer.write(String.valueOf(tree.value) + " "); 
+    		 serializeBinaryTree(tree.left,  writer);
+    		 serializeBinaryTree(tree.right, writer); 
+    	 }
+     }
+	
+          
+     public static BinaryTree deserializeBinaryTree(String filePath){
+    	 
+    	BinaryTree tree = null ;  
+		try {
+			
+			Scanner scanner = new Scanner(new File(filePath)); 
+			tree = deserializeBinaryTree(scanner); 
+			scanner.close(); 
+			  
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return tree; 
+     } 
+     
+     
+    
+     public static BinaryTree deserializeBinaryTree(Scanner scanner){
+    	 
+    	BinaryTree tree = null; 
+    	if( scanner.hasNext()){ 
+    	
+    		String strValue = scanner.next(); 
+			if( !strValue.equalsIgnoreCase("#") ){ 
+				tree = new BinaryTree( Integer.parseInt(strValue)); 
+				tree.left  = deserializeBinaryTree(scanner); 
+				tree.right = deserializeBinaryTree(scanner); 
+			}
+    	} 
+		
+		return tree ; 
+     }
+     
+     
+     
 }

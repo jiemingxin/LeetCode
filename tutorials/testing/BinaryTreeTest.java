@@ -240,8 +240,47 @@ public class BinaryTreeTest {
 	
 	
 	
+	@Test 
+	public void testBinaryTreeSerialisationNULLTree(){
+		
+		String filePath = "NullTree" ; 
+		BinaryTree savedTree = null ; 
+		BinaryTree.serializeBinaryTree(savedTree, filePath); 
+		BinaryTree loadedTree = BinaryTree.deserializeBinaryTree(filePath); 
+		
+		boolean isEqual = isSameBinaryTree(savedTree, loadedTree);
+		assertTrue(isEqual); 
+	}
 	
 	
 	
+	
+	@Test 
+	public void testBinaryTreeSerialisationTwoLevelBinaryTree(){
+		
+		String filePath = "TwoLevelBinaryTree" ; 
+		BinaryTree savedTree = createTwoLevelBinaryTree() ; 
+		BinaryTree.serializeBinaryTree(savedTree, filePath); 
+		BinaryTree loadedTree = BinaryTree.deserializeBinaryTree(filePath); 
+		
+		boolean isEqual = isSameBinaryTree(savedTree, loadedTree);
+		assertTrue(isEqual); 
+	}
+	
+	
+	
+	@Test 
+	public void testBinaryTreeSerialisationTreeThreeLevelBinaryTree(){
+		
+		String filePath = "ThreeLevelBinaryTree" ; 
+		BinaryTree savedTree = createThreeLevelBinaryTree() ; 
+		BinaryTree.serializeBinaryTree(savedTree, filePath); 
+		BinaryTree loadedTree = BinaryTree.deserializeBinaryTree(filePath); 
+		
+		boolean isEqual = isSameBinaryTree(savedTree, loadedTree);
+		assertTrue(isEqual); 
+	}
+	
+
 
 }
