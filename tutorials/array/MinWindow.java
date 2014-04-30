@@ -10,8 +10,8 @@ import tutorials.utils._;
  * Given a set T of characters and a string S, find the minimum window 
  * in S which will contain all the characters in T in complexity O(n). 
  *  e.g.,
- *      S = ¡°ADOBECODEBANC¡±,  T = ¡°ABC¡±
- * Minimum window is ¡°BANC¡±.
+ *      S = "OBECODEBANC"  T = "ABC"
+ * Minimum window is "BANC"
  * 
  * @author endeavour
  *
