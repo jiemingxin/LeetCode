@@ -178,21 +178,93 @@ public class BinaryTreeTest {
 	
 	
 	
-
-	//@Test
-	public void testTreeTraversal(){
+	
+	@Test
+	public void testPreOrderTreeTraversal(){
 		
-		int margin = 5 ;  
-		BinaryTree tree = createFiveLevelBinaryTree(); 
-		tree.prettyPrint(margin, System.out); 
+		BinaryTree tree = createTwoLevelBinaryTree(); 
+		String recursivePostString = BinaryTree.preOrderTraversalRecursive(tree);  
+		String iterativePostString = BinaryTree.preOrderTraversalIterative(tree); 
+		assertEquals(recursivePostString, iterativePostString); 
 		
-		System.out.println("Recursive post order traversal:");
-		BinaryTree.postOrderTraversalRecursive(tree); 
+		tree = createThreeLevelBinaryTree();  
+		recursivePostString = BinaryTree.preOrderTraversalRecursive(tree);  
+		iterativePostString = BinaryTree.preOrderTraversalIterative(tree); 
+		assertEquals(recursivePostString, iterativePostString); 
 		
-		System.out.println("\nIterative post order traversal:"); 
-		BinaryTree.postOrderTraversalIterative(tree); 
+		tree = createFourLevelBinaryTree(); 
+		recursivePostString = BinaryTree.preOrderTraversalRecursive(tree);  
+		iterativePostString = BinaryTree.preOrderTraversalIterative(tree); 
+		assertEquals(recursivePostString, iterativePostString); 
+		
+		tree = createFiveLevelBinaryTree(); 
+		recursivePostString = BinaryTree.preOrderTraversalRecursive(tree);  
+		iterativePostString = BinaryTree.preOrderTraversalIterative(tree); 
+		assertEquals(recursivePostString, iterativePostString); 
 	}
 	
+	
+	
+	
+	
+	@Test
+	public void testInOrderTreeTraversal(){
+		
+		BinaryTree tree = createTwoLevelBinaryTree(); 
+		String recursivePostString = BinaryTree.inOrderTraversalRecursive(tree);  
+		String iterativePostString = BinaryTree.inOrderTraversalIterative(tree); 
+		assertEquals(recursivePostString, iterativePostString); 
+		
+		tree = createThreeLevelBinaryTree();  
+		recursivePostString = BinaryTree.inOrderTraversalRecursive(tree);  
+		iterativePostString = BinaryTree.inOrderTraversalIterative(tree); 
+		assertEquals(recursivePostString, iterativePostString); 
+		
+		tree = createFourLevelBinaryTree(); 
+		tree.prettyPrint(3, System.out);
+		recursivePostString = BinaryTree.inOrderTraversalRecursive(tree);  
+		iterativePostString = BinaryTree.inOrderTraversalIterative(tree); 
+		assertEquals(recursivePostString, iterativePostString); 
+		
+		tree = createFiveLevelBinaryTree(); 
+		recursivePostString = BinaryTree.inOrderTraversalRecursive(tree);  
+		iterativePostString = BinaryTree.inOrderTraversalIterative(tree); 
+		assertEquals(recursivePostString, iterativePostString); 
+	}
+	
+	
+	@Test
+	public void testPostOrderTreeTraversal(){
+		
+		BinaryTree tree = createTwoLevelBinaryTree(); 
+		String recursivePostString = BinaryTree.postOrderTraversalRecursive(tree);  
+		String iterativePostString = BinaryTree.postOrderTraversalIterative(tree); 
+		assertEquals(recursivePostString, iterativePostString); 
+				
+		tree = createThreeLevelBinaryTree(); 
+		recursivePostString = BinaryTree.postOrderTraversalRecursive(tree);  
+		iterativePostString = BinaryTree.postOrderTraversalIterative(tree); 
+		assertEquals(recursivePostString, iterativePostString); 
+		
+		
+		tree = createFourLevelBinaryTree(); 
+		recursivePostString = BinaryTree.postOrderTraversalRecursive(tree);  
+		iterativePostString = BinaryTree.postOrderTraversalIterative(tree); 
+		assertEquals(recursivePostString, iterativePostString); 
+		
+		
+		tree = createFiveLevelBinaryTree(); 
+		recursivePostString = BinaryTree.postOrderTraversalRecursive(tree);  
+		iterativePostString = BinaryTree.postOrderTraversalIterative(tree); 
+		assertEquals(recursivePostString, iterativePostString); 
+	}
+	
+	
+	
+	
+	
+
+
 	
 	
 	

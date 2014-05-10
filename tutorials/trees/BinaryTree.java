@@ -26,7 +26,8 @@ public class BinaryTree {
 	
 	public int value ; 
 	public BinaryTree left, right ; 
-
+	public static String nodeSeparator = " " ; 
+	
 	private static int fieldWidth 		= 6 ; 
 	private static int leafNodeDistance = 6 ; 
 
@@ -528,17 +529,192 @@ public class BinaryTree {
 	}
 	
 	
+	////////////////////////////////////////////////////////////////////////////////////////
+	///////////////  Tree Traversals 
+	//////////////////////////////////////////////////////////////////////////////////////// 
 	
-	public static void postOrderTraversalRecursive(BinaryTree tree){
-	
-		if( tree == null )
-			return ; 
+	public static String preOrderTraversalRecursive(BinaryTree tree){
 		
-		postOrderTraversalRecursive(tree.left); 
-		postOrderTraversalRecursive(tree.right); 
-		System.out.print(" " + tree.value + " "); 		
+		if( tree == null)
+			return null ; 
+		
+		String leftTreeString  = preOrderTraversalRecursive(tree.left); 
+		String currNodeStr = String.valueOf(tree.value);  
+		String rightTreeString = preOrderTraversalRecursive(tree.right);
+		
+		StringBuilder stringBuilder = new StringBuilder();
+		if( leftTreeString == null && rightTreeString == null) 
+			stringBuilder.append(currNodeStr); 
+		else if ( leftTreeString == null || rightTreeString == null){
+			if( leftTreeString == null)
+				stringBuilder.append(currNodeStr + nodeSeparator + rightTreeString); 
+			else 
+				stringBuilder.append(currNodeStr + nodeSeparator + leftTreeString ); 
+		}else{
+			stringBuilder.append( currNodeStr + nodeSeparator +  leftTreeString +  nodeSeparator +  rightTreeString ); 
+		}
+		return 	stringBuilder.toString(); 		
 	}
 	
+
+	public static String inOrderTraversalRecursive(BinaryTree tree){
+		
+		if( tree == null)
+			return null ; 
+		
+		String leftTreeString  = inOrderTraversalRecursive(tree.left); 
+		String currNodeStr = String.valueOf(tree.value);  
+		String rightTreeString = inOrderTraversalRecursive(tree.right);
+		
+		StringBuilder stringBuilder = new StringBuilder();
+		if( leftTreeString == null && rightTreeString == null) 
+			stringBuilder.append(currNodeStr); 
+		else if ( leftTreeString == null || rightTreeString == null){
+			if( leftTreeString == null)
+				stringBuilder.append(currNodeStr + nodeSeparator + rightTreeString); 
+			else 
+				stringBuilder.append(leftTreeString + nodeSeparator + currNodeStr); 
+		}else{
+			stringBuilder.append(leftTreeString + nodeSeparator + currNodeStr +  nodeSeparator +  rightTreeString  ); 
+		}
+		return 	stringBuilder.toString(); 		
+	}
+	
+	
+	
+	public static String postOrderTraversalRecursive(BinaryTree tree){
+		
+		if( tree == null )
+			return null; 
+		
+		String leftTreeString  = postOrderTraversalRecursive(tree.left); 
+		String rightTreeString = postOrderTraversalRecursive(tree.right);
+		
+		StringBuilder stringBuilder = new StringBuilder(); 
+		String currNodeStr = String.valueOf(tree.value); 
+
+		if( leftTreeString == null && rightTreeString == null)
+			stringBuilder.append( currNodeStr ); 
+		else if ( leftTreeString == null || rightTreeString == null){
+			if( leftTreeString == null)
+				stringBuilder.append(rightTreeString + nodeSeparator + currNodeStr); 
+			else 
+				stringBuilder.append(leftTreeString + nodeSeparator + currNodeStr); 
+		}else{
+			stringBuilder.append(leftTreeString + nodeSeparator + rightTreeString + nodeSeparator + currNodeStr); 
+		}
+		return 	stringBuilder.toString(); 
+	}
+	
+	
+	
+	
+	public static String preOrderTraversalIterative(BinaryTree root){
+		
+		Stack<BinaryTree> stack = new Stack<BinaryTree>(); 
+		stack.push(root); 
+		BinaryTree  prev = null ; 
+		
+		StringBuilder stringBuilder = new StringBuilder();   
+		while(!stack.isEmpty()){
+			
+			BinaryTree curr = stack.peek(); 
+			if(prev==null || curr==prev.left || curr==prev.right){ 
+				// we are traversing downwards 
+				if(stringBuilder.length()== 0) 
+					stringBuilder.append(curr.value);
+				else 
+					stringBuilder.append(nodeSeparator + curr.value); 
+				
+				if(curr.left!= null) 
+					stack.push(curr.left); 
+				else{ 
+					if(curr.right!=null)        // when traveing downwards, the right kid 
+						stack.push(curr.right); // is pushed to the stack only when the 
+					else                        // the left kid is null, and right kid is not null 
+						stack.pop();
+				}
+				
+			}else{
+				// we are traversing upwards 
+				if( prev == curr.left){
+					// the left node has been processed 
+					if( curr.right!=null)
+						stack.push(curr.right);
+					else 
+						stack.pop(); 
+				}else if( prev == curr.right){
+					// the right node has been processed 
+					// we process left, right, then the parent node -> pop it 
+					stack.pop(); 
+				}
+			}
+			prev = curr ; 
+		}
+		
+		return stringBuilder.toString(); 
+	}
+	
+	
+	
+	
+	/**
+	 *   Similar to the iterative postOrder traversal method, we keep two references, namely 
+	 *   "prev" and "curr". Their relationship helps to determine if we are traversing 
+	 *    upwards or downwards 
+	 * 
+	 * @param root
+	 * @return
+	 */
+	public static String inOrderTraversalIterative(BinaryTree root){
+		
+		Stack<BinaryTree> stack = new Stack<BinaryTree>(); 
+		BinaryTree prev = null ; 
+		stack.push(root); 
+		
+		StringBuilder stringBuilder = new StringBuilder();  
+		while(!stack.isEmpty()){
+			
+			BinaryTree curr = stack.peek(); 
+			if(prev==null || prev.left==curr || prev.right== curr ){  
+				// we are traversing downwards 
+				if(curr.left != null){
+					stack.push(curr.left) ; 
+				}else{
+					if(stringBuilder.length()!= 0)
+						stringBuilder.append(nodeSeparator + curr.value); 
+					else 
+						stringBuilder.append(curr.value); 
+	
+					if(curr.right!=null) 
+						stack.push(curr.right); 	
+					else 
+						stack.pop(); 
+				}
+			}else{ // we are traversing upwards  
+				
+				if(curr.left == prev){
+					// the left child has been processed 
+					if(stringBuilder.length()!= 0)
+						stringBuilder.append(nodeSeparator + curr.value);
+					else 
+						stringBuilder.append(curr.value);
+					
+					if( curr.right != null)
+						stack.push(curr.right); 
+					else 
+						stack.pop();
+
+				}else if(curr.right == prev){
+					// the right child has been processed -> the parent 
+					// node should have been processed -> pop it 
+					stack.pop(); 
+			   }
+			}
+			prev = curr ;
+		}
+		return stringBuilder.toString(); 
+	}
 	
 	
 	/**
@@ -561,9 +737,11 @@ public class BinaryTree {
 	 *       
 	 * @param root - the root of the binary tree 
 	 */
-	public static void postOrderTraversalIterative(BinaryTree root){
+	public static String postOrderTraversalIterative(BinaryTree root){
 	
-		Stack<BinaryTree> stack = new Stack<BinaryTree>(); 
+		Stack<BinaryTree> stack  = new Stack<BinaryTree>(); 
+		StringBuilder stringBuilder = new StringBuilder(); 
+		
 		BinaryTree prev = null ; 
 		stack.push(root); 
 		
@@ -578,36 +756,52 @@ public class BinaryTree {
 				else if ( curr.right != null)
 					stack.push( curr.right); 
 				else{ 
-					System.out.print(" " + curr.value + " "); 
-					stack.pop(); 
+					if(stringBuilder.length()!= 0)
+						stringBuilder.append(nodeSeparator + curr.value);
+					else 
+						stringBuilder.append(curr.value);
+					stack.pop(); // pop the current node only if it has been visited 
 				}
 			}else{ // "curr" is the parent of "prev": we are traversing up the tree 
 			
 				if( curr.left == prev ){ // we finish processing the left node  
-					
 					if( curr.right!= null) 
 						stack.push(curr.right); 
 					else{
-						System.out.print(" " + curr.value + " ");  
+						if(stringBuilder.length()!= 0)
+							stringBuilder.append(nodeSeparator + curr.value);
+						else 
+							stringBuilder.append(curr.value);
 						stack.pop(); 
 					}
-					
 				}else if( curr.right == prev){ // we finish processing the right kid 
 					
-					System.out.print(" " + curr.value + " ");   
+					if(stringBuilder.length()!= 0)
+						stringBuilder.append(nodeSeparator + curr.value);
+					else 
+						stringBuilder.append(curr.value);
 					stack.pop(); 
 				}
 			}	
 			prev = curr ; 
 		}
+		return stringBuilder.toString(); 
 	}
 		
 	
+
 	
 	
+	
+	
+	
+	
+	
+	////////////////////////////////////////////////////////////////////////////////////////
+	///////////////  Tree Serialization 
+	//////////////////////////////////////////////////////////////////////////////////////// 
 	public static void serializeBinarySearchTree(BinaryTree bst, String bstFilePath)
 	{
-		
 		FileOutputStream outStream  ; 
 		try{ 
 			
