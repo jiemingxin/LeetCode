@@ -125,6 +125,10 @@ public class BinaryTree {
 	}
 	
 	
+	//////////////////////////////////////////////////////////////////////////////////////// 
+	//// Printing Trees 
+	////////////////////////////////////////////////////////////////////////////////////////  
+	
 	public void prettyPrint(int margin, PrintStream outStream){
 		
 		int height = getHeight(); 
@@ -287,6 +291,10 @@ public class BinaryTree {
 	                + rightBuilder.toString();
 	    }
 	}
+	
+	
+	
+	
 	
 	
 	public static BinaryTree findMaxBstSubtreeTopDown(BinaryTree tree)
@@ -527,6 +535,95 @@ public class BinaryTree {
 		 if( print )
 			 System.out.print(tree.value + " "); 
 	}
+	
+	
+	//////////////////////////////////////////////////////////////////////////////////////// 
+	//// Maximum height 
+	//////////////////////////////////////////////////////////////////////////////////////// 
+	
+	
+	/**
+	 * 
+	 * The maximum height of a binary tree is defined as the number of nodes along the 
+	 * path from the root node to the deepest leaf node. Note that the maximum height 
+	 * of an empty tree is 0. 
+	 * 
+	 * 
+	 * @param tree
+	 * @return
+	 */
+	
+	public static int maxHeightRecursive(BinaryTree tree){
+		
+		if(tree==null)
+			return 0; 
+		
+		return Math.max( maxHeightRecursive(tree.left), maxHeightRecursive(tree.right) ) + 1; 
+	}
+	
+	
+	
+	/**
+	 *  This iterative solution is based on post order tree traversal 
+	 * 
+	 * @param tree
+	 * @return
+	 */
+	public static int maxHeightIterative(BinaryTree tree){
+		
+		if(tree==null)
+			return 0; 
+				
+		int height =  0; 
+		int maxHeight = Integer.MIN_VALUE ;  
+		
+		BinaryTree prev = null ;  
+		
+		Stack<BinaryTree> stack = new Stack<BinaryTree>(); 
+		stack.push(tree);  
+		while(!stack.isEmpty()){
+			
+			BinaryTree curr = stack.pop(); 
+	
+			if(prev==null || curr == prev.left || curr == prev.right ){
+				// we are traversing downwards 
+				if( curr.left!=null){
+					stack.push(curr); 
+					height ++; 
+				}else{
+					if(curr.right!=null){
+						stack.push(curr); 
+						height ++ ; 
+					}else{
+						// now we have reached one leaf node, since 
+						// both 'left' and 'right' are null 
+						maxHeight = Math.max(maxHeight, height); 
+					}
+				}
+			}else{
+				// we are traversing upwards 
+				if( prev == curr.left ){
+					// we have finished the left tree 
+					height -- ; 
+					if(curr.right!=null){
+						stack.push(curr.right);
+						height ++; 
+					}else{
+						stack.pop(); 
+					}
+				}else if ( prev == curr.right){
+					// we have finished the right tree
+					height -- ; 
+					stack.pop(); 
+				}
+			} 
+			prev = curr ; 
+		}
+
+		return maxHeight ; 
+
+	}
+	
 	
 	
 	////////////////////////////////////////////////////////////////////////////////////////

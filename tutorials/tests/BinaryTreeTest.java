@@ -354,5 +354,38 @@ public class BinaryTreeTest {
 	}
 	
 
+	
+	
+	@Test 
+	public void testTreeMaxHeight(){
+		
+		BinaryTree tree = createTwoLevelBinaryTree();  
+		int expected = BinaryTree.maxHeightRecursive(tree); 
+		int actual   = BinaryTree.maxHeightRecursive(tree); 
+		assertEquals(expected, actual); 
+		
+		
+		tree = createThreeLevelBinaryTree();  
+		expected = BinaryTree.maxHeightRecursive(tree); 
+		actual   = BinaryTree.maxHeightRecursive(tree); 
+		assertEquals(expected, actual);  
+		
+		
+		tree = createFourLevelBinaryTree();  
+		expected = BinaryTree.maxHeightRecursive(tree); 
+		actual   = BinaryTree.maxHeightRecursive(tree); 
+		assertEquals(expected, actual);   
+		
+		
+		tree = createFiveLevelBinaryTree();  
+		expected = BinaryTree.maxHeightRecursive(tree); 
+		actual   = BinaryTree.maxHeightRecursive(tree); 
+		assertEquals(expected, actual);   
+	}
 
+	
+	
+	
+	
+	
 }

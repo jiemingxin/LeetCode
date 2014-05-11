@@ -6,24 +6,10 @@ import org.junit.Test;
 
 import tutorials.list.SplitList;
 import tutorials.utils.ListNode;
+import tutorials.utils.ListCreate; 
 import tutorials.utils._;
 
 public class SplitListTest {
-
-
-	
-	public static boolean isTwoListSame(ListNode first, ListNode second){
-		
-		if(first==null && second==null)
-			return true; 
-		
-		if(first==null || second==null)
-			return false; 
-		
-		return (first.value == second.value) && 
-				isTwoListSame(first.next, second.next); 
-	}
-	
 	
 	
 	public static void createOddLengthList(_<ListNode> head, _<ListNode> front, _<ListNode> tail){
@@ -65,9 +51,7 @@ public class SplitListTest {
 		tailList.next = new ListNode(3);  
 		tail.set(tailList); 
 	}
-	
-	
-	
+		
 	
 	
 	@Test
@@ -99,9 +83,10 @@ public class SplitListTest {
 		SplitList.split(head.value(), actualFront, actualTail);  
 		
 
-		assertTrue(isTwoListSame(expectedFront.value(), actualFront.value())); 
-		assertTrue(isTwoListSame(expectedTail.value(), actualTail.value())); 
+		assertTrue(ListCreate.isTwoListSame(expectedFront.value(), actualFront.value())); 
+		assertTrue(ListCreate.isTwoListSame(expectedTail.value(), actualTail.value())); 
 	}
+	
 	
 	
 	
@@ -118,10 +103,10 @@ public class SplitListTest {
 		createOddLengthList(head, expectedFront, expectedTail); 
 		SplitList.split(head.value(), actualFront, actualTail);  
 		
-
-		assertTrue(isTwoListSame(expectedFront.value(), actualFront.value())); 
-		assertTrue(isTwoListSame(expectedTail.value(), actualTail.value())); 
+		assertTrue(ListCreate.isTwoListSame(expectedFront.value(), actualFront.value())); 
+		assertTrue(ListCreate.isTwoListSame(expectedTail.value(), actualTail.value())); 
 	}
+	
 	
 	
 	
@@ -136,9 +121,8 @@ public class SplitListTest {
 		ListNode expectedFront = head ; 
 		ListNode expectedTail = null ;
 		
-
-		assertTrue(isTwoListSame(expectedFront, actualFront.value())); 
-		assertTrue(isTwoListSame(expectedTail, actualTail.value())); 
+		assertTrue(ListCreate.isTwoListSame(expectedFront, actualFront.value())); 
+		assertTrue(ListCreate.isTwoListSame(expectedTail, actualTail.value())); 
 	}
 	
 	
