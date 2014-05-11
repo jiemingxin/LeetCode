@@ -1,4 +1,4 @@
-package tutorials.array;
+package tutorials.strings;
 
 import tutorials.utils._;
 

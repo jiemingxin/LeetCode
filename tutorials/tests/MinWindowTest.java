@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import tutorials.array.MinWindow;
+import tutorials.strings.MinWindow;
 import tutorials.utils._;
 
 public class MinWindowTest {
