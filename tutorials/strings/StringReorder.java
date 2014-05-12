@@ -37,20 +37,55 @@ public class StringReorder {
 	 */
 	public static String reorderString(String source, int dist){
 		
-		// collect the character frequency 
-		int[] occur = new int[NUM_ASCII_CHARS] ; 
-		for(int i=0; i<source.length(); i++) 
-			occur[source.charAt(i)] ++ ; 
+		int[] occurs = new int[NUM_ASCII_CHARS] ; 
+		int[] dists  = new int[NUM_ASCII_CHARS] ; // a char is available only if dist[i] is <= 0 
+		boolean[] avail = new boolean[NUM_ASCII_CHARS]; // by default evey char is available 
 		
-		// now start to insert, but we need some accounting props 
+		// collect the character frequency  
+		int sourceLength = source.length(); 
+		for(int i=0; i<sourceLength; i++) 
+			occurs[source.charAt(i)] ++ ; 
 		
+		// now start to insert 
+		StringBuilder stringBuilder = new StringBuilder(); 
+		for(int i=0; i<sourceLength; i++){
+			
+			for(int k=0; k<NUM_ASCII_CHARS; k++) 
+				avail[i] = true ; 
+			
+			int index = findMaxOccurChar(occurs, dists, avail); 
+			if( index == -1)
+					return null ; 
 		
+			avail[index] = false; 
+			dists[index] = dist ; 
+			occurs[index] -- ; 
+		}
 		
-		
-		
-		
-		return null; 
-		
+		//decay the distances 
+		for(int i=0; i<sourceLength; i++)
+			dists[i] --; 
+				
+		return stringBuilder.toString(); 
 	} 
+	
+	
+	
+	protected static int findMaxOccurChar(int[] occurs, int[] dists, boolean[] avail){
+		
+		int maxIndex = -1; 
+		int maxOccur = Integer.MIN_VALUE ; 
+		
+		for(char c='a';  c<='z';  c++){
+			if(occurs[c]>maxOccur && dists[c]<=0 && avail[c] ){
+				maxOccur = occurs[c]; 
+				maxIndex = c ; 
+			}
+		}
+		
+		return maxIndex ; 
+	}
+		
+	
 		
 }
