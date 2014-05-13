@@ -20,6 +20,7 @@ public class StringReorder {
 	public static int NUM_ASCII_CHARS = 128 ;  
 	
 	
+	
 	/**
 	 * Reorder the string such that duplicated characters are at least "dist" 
 	 * apart from each other. Note that There could be more than one solution 
@@ -50,31 +51,36 @@ public class StringReorder {
 		StringBuilder stringBuilder = new StringBuilder(); 
 		for(int i=0; i<sourceLength; i++){
 			
-			for(int k=0; k<NUM_ASCII_CHARS; k++) 
-				avail[i] = true ; 
+			for(int j=0; j<NUM_ASCII_CHARS; j++) 
+				avail[j] = true ; 
 			
 			int index = findMaxOccurChar(occurs, dists, avail); 
 			if( index == -1)
 					return null ; 
 		
+			stringBuilder.append((char) index); 
 			avail[index] = false; 
 			dists[index] = dist ; 
 			occurs[index] -- ; 
+			
+			
+			//decay the distances for all chars in the set 
+			for(int k=0; k<NUM_ASCII_CHARS; k++)
+				dists[k] --; 
 		}
 		
-		//decay the distances 
-		for(int i=0; i<sourceLength; i++)
-			dists[i] --; 
+
 				
 		return stringBuilder.toString(); 
 	} 
 	
 	
 	
+	
 	protected static int findMaxOccurChar(int[] occurs, int[] dists, boolean[] avail){
 		
 		int maxIndex = -1; 
-		int maxOccur = Integer.MIN_VALUE ; 
+		int maxOccur = 0 ; 
 		
 		for(char c='a';  c<='z';  c++){
 			if(occurs[c]>maxOccur && dists[c]<=0 && avail[c] ){
