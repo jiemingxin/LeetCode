@@ -10,7 +10,14 @@ package tutorials.strings;
  *   
  *   Input: { a, b, b }, distance = 2 
  *   Output: { b, a, b }
- * 
+ *   
+ *  NOTE: 
+ *   Key elements to this solution
+ *   (1) the idea of insertion 
+ *   (2) the use of "dists" array to make sure duplicated chars are distance 
+ *      apart 
+ *   (3)  
+ *   
  * @author endeavour
  *
  */
@@ -18,7 +25,6 @@ package tutorials.strings;
 public class StringReorder {
 	
 	public static int NUM_ASCII_CHARS = 128 ;  
-	
 	
 	
 	/**
@@ -32,6 +38,7 @@ public class StringReorder {
 	 *    (1) the same character should be inserted "dist" apart 
 	 *    (2) insert the characters with maximum frequency first 
 	 *  
+	 *  Time complexity: O(MN), where M is the set size, and N is the string size 
 	 * 
 	 * @param source
 	 * @return
@@ -62,7 +69,6 @@ public class StringReorder {
 			avail[index] = false; 
 			dists[index] = dist ; 
 			occurs[index] -- ; 
-			
 			
 			//decay the distances for all chars in the set 
 			for(int k=0; k<NUM_ASCII_CHARS; k++)
