@@ -3,8 +3,8 @@ package tutorials.array;
 
 /**
  * 
- *  Given the sequence S1 = {a,b,c,d,бн,x,y,z,aa,ab,acбн. } and given that this sequence 
- *  corresponds (term for term) to the sequence S2 = {0,1,2,3,бн.}. Write code to convert 
+ *  Given the sequence S1 = {a,b,c,d,...,y,z,aa,ab,ac...} and given that this sequence 
+ *  corresponds (term for term) to the sequence S2 = {0,1,2,3,...}. Write code to convert 
  *  an element of S2 to the corresponding element of S1.
  * 
  *   http://leetcode.com/2010/10/amazon-bar-raiser-interview-question.html 
