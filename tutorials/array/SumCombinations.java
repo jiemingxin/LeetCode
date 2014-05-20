@@ -14,6 +14,9 @@ import java.io.PrintStream;
  *
  *  http://leetcode.com/2010/09/print-all-combinations-of-number-as-sum.html 
  *
+ * The solution is a recursive solution 
+ *
+ *
  * @author endeavour
  *
  */
@@ -23,36 +26,76 @@ import java.io.PrintStream;
 public class SumCombinations {
 	
 	
-	public static void findAllCombinations(int sum, int[] candidates){
+	///////////////////////////////////////////////////////////////////
+	///  Solution from the link above 
+	///////////////////////////////////////////////////////////////////
+	
+	public static void solve(int target, int[] candidates){
 		
-		int[] selected = new int[candidates.length]; 
-		findAllCombinations(sum, candidates, selected); 
+		int[] index = new int[candidates.length+1]; 
+		solve(target, 0, candidates, index, 0); 
 	}
 	
 	
 	
-	protected static void findAllCombinations(int sum, int[] candidates, int[] selected){
+	protected static void solve(int target, int sum, int[] candidates, int index[], int endIdx) {
+		  if (sum > target)
+		    return;
+		  if (sum == target)
+		    printSum(candidates, index, endIdx);
+		 
+		  for (int i = index[endIdx];  i<candidates.length;  i++) {
+			  index[endIdx+1] = i;
+			  solve(target, sum + candidates[i], candidates, index, endIdx+1);
+		  }
+	} 
+	
+	
+	
+	protected static void printSum(int candidates[], int index[], int endIdx) {
+		 
+		// note the indexing variable 'i' starts from 1 
+		for (int i = 1; i <= endIdx; i++)
+		    System.out.print( candidates[index[i]] + ((i == endIdx) ? "" : "+") );
+		System.out.println(); 
+	}
+		
+	
+	
+	///////////////////////////////////////////////////////////////////
+	///  Incorrect solution... 
+	///////////////////////////////////////////////////////////////////
+	
+	public static void findAllCombinations(int sum, int[] candidates){
+		
+		int[] selected = new int[candidates.length+1]; 
+		findAllCombinations(sum, candidates, selected, 0); 
+	}
+	
+	
+	
+	protected static void findAllCombinations(int sum, int[] candidates, int[] selected, int startIdx){
+		
+		// exception handling 
+		if( sum < 0) 
+			return  ;
 		
 		// base case 
-		if( sum < 0) 
-			return  ; 
+		if( sum == 0){
+			printSelected(candidates, selected); 
+			return ; 
+		} 
+			
 		
-		for(int i=0; i<candidates.length; i++){
-			if(sum == candidates[i]){ 
-				selected[i] ++; 
-				printSelected(candidates, selected);
-				return ; 
-			}
-		}
-		
-		
-		for(int i=0; i<candidates.length; i++){
+		// recursive call 
+		for(int i=startIdx; i<candidates.length; i++){
 			int remain = sum - candidates[i]; 
 			selected[i] ++; 
-			findAllCombinations(remain, candidates, selected);
+			findAllCombinations(remain, candidates, selected, 0);
 			selected[i]-- ; 
 		}
 	}
+	
 	
 	
 	
@@ -64,9 +107,9 @@ public class SumCombinations {
 		for(int i=0; i<selected.length; i++)
 		{
 			for(int k=0; k<selected[i]; k++)
-				out.print(candidates[i] + ","); 
+				out.print(candidates[i] + " "); 
 		}
-		out.println(" ]"); 
+		out.println("]"); 
 	}
 
 	
@@ -77,8 +120,13 @@ public class SumCombinations {
 	public static void main(String[] args){
 	
 		int sum =  7; 
-		int[] candidates = {2, 2, 3, 4}; 
-		findAllCombinations(sum, candidates); 
+		//int[] candidates = {2, 3, 4}; 
+		int[] candidates = {2,3,6,7};
+		//int[] candidates = {10, 1, 2, 7, 6, 1, 5}; 
+		
+		solve(sum, candidates);
+		
+		//findAllCombinations(sum, candidates); 
 	}
 	
 	
