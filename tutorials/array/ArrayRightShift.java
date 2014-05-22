@@ -22,6 +22,8 @@ package tutorials.array;
  *      |A| = |B2|. Swap A with B2 ==> B2B1A => shift "B2B1" 
  *      to "B1B2" recursively 
  * 
+ * 
+ * 
  * @author endeavour
  *
  */
@@ -30,7 +32,8 @@ public class ArrayRightShift {
 	
 	
 	public static void shiftRight(int[] arr, int nShifts){
-		shiftRight(arr, 0, arr.length-1, nShifts); 		
+		int length = arr.length; 
+		shiftRight(arr, 0, length-1, nShifts%length); 		
 	}
 	
 
@@ -46,16 +49,12 @@ public class ArrayRightShift {
 	protected static void shiftRight(int[] arr, int start, int finish, int nShifts){
 		
 		// handle the exception 
-		if(start > finish)
+		if(start > finish||nShifts ==0)
 			return; 
 
 		int total   = finish - start + 1; 
 		int nFronts = total - nShifts ; 
-		
-		// handle the "exception" 
-		if(nFronts == 0)
-			return ; 
-		
+				
 		// handle the base case 
 		if( nFronts == nShifts ){	
 			for(int i=0; i<nFronts; i++)
