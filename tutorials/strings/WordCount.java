@@ -25,10 +25,12 @@ public class WordCount {
 		for(int i=0;  i<str.length(); i++){
 			
 			char c = str.charAt(i); 
-			if( !inWord && (Character.isLetter(c)||Character.isDigit(c)) ){  // getting into a word 
+			
+			if( !inWord && (Character.isAlphabetic(c) || Character.isDigit(c)) ){  // getting into a word 
 				inWord = true ; 
-			}else if ( inWord && !Character.isLetter(c) && !Character.isDigit(c) ) {  // from word to spaces, increment the count 
+			}else if ( inWord && !(Character.isAlphabetic(c) || Character.isDigit(c))) {  // from word to spaces, increment the count 
 				numWords ++ ; 
+				inWord = false ; 
 			}
 		}
 		
