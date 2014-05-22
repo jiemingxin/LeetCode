@@ -46,8 +46,8 @@ public class ArrayRightShift {
 	 * @param finish
 	 * @param nShifts
 	 */
-	protected static void shiftRight(int[] arr, int start, int finish, int nShifts){
-		
+	protected static void shiftRight(int[] arr, int start,
+									 int finish, int nShifts){
 		// handle the exception 
 		if(start > finish||nShifts ==0)
 			return; 
