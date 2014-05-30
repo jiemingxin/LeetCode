@@ -25,6 +25,13 @@ import java.util.Set;
  *  can be found then we output it. If the complementary value is smaller than
  *  the actual needed, we will ignore the current 'left' value. If the value 
  *  is bigger than the complementary value, we drop the 'right' value 
+ *  
+ *  
+ *  Time complexity: 
+ *  
+ *  For a sorted array, the time complexity is O(n). If the array is not 
+ *  sorted, then the complexity is O(nlog(n)) 
+ *         
  *   
  * @author Endeavour
  *
@@ -36,15 +43,15 @@ public class TwoSum {
 		
 		Set<Set<Integer>> pairs = new HashSet<Set<Integer>>(); 
 		
-		// nlog(n) in sorting  
+		// O(nlog(n)) in sorting  
 		Arrays.sort(arr);  
 		
-		// linear search 
+		// linear search O(n) 
 		int left=0 ; 
 		int right= arr.length -1; 
 		while(left < right){
 			
-			// we calculate the complement value for arr[left] 
+			// we calculate the complement value for each arr[left] 
 			int leftValue  = arr[left]; 
 			int rightValue = arr[right]; 
 			int complement = sum - leftValue; 
@@ -73,19 +80,7 @@ public class TwoSum {
 			// (p1, p1'), (p2,p2'), ... (p3, p3'); 
 			// if p1<p2<p3, then p1'> p2'>p3' 
 		}
-		
 		return pairs; 
 	}
-	
-	
-
-	public static void main(String[] args){
-		
-
-		
-		
-		
-		
-	}
-		
+			
 }
