@@ -1,21 +1,11 @@
 package tutorials.tests;
 
 import static org.junit.Assert.assertTrue;
-
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
-
 import org.junit.Test;
-
 import tutorials.array.ThreeSum;
 
 public class ThreeSumTest {
-
-	
-
-	
-	
 	
 	@Test
 	public void testSearchTripletsNotFound() {
@@ -26,7 +16,6 @@ public class ThreeSumTest {
 		Set<Set<Integer>> actual = ThreeSum.searchTriplets(arr, sum);  	 
 		assertTrue( actual.isEmpty()); 
 	}
-	
 	
 	
 
