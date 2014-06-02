@@ -58,8 +58,6 @@ import java.util.ArrayList;
 
 public class SortedArrayIntersection {
 
-	
-	
 	public static ArrayList<Integer> findIntersections(int[] A, int[] B){
 		
 		ArrayList<Integer> intersection = new ArrayList<Integer>(); 
@@ -77,9 +75,6 @@ public class SortedArrayIntersection {
 		}		
 		return intersection ; 
 	}
-	
-	
-	
 	
 	
 	public static ArrayList<Integer> findIntersectionsPairwiseScan(int[] A, int[] B){
