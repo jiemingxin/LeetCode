@@ -48,9 +48,9 @@ public class RotatedSortedArraySearch {
 		int lo = 0; 
 		int hi = arr.length-1;
 		
-		while(lo<=hi){
+		while(lo<=hi){ // NOTE the equal sign 
 			
-			int mid = lo + (hi-lo)/2; 
+			int mid = lo + (hi-lo)/2;  // NOTE how 'mid' is calculated
 			if(arr[mid] == key)
 				return mid ; 
 			
