@@ -221,7 +221,6 @@ public class BinaryTreeTest {
 		assertEquals(recursivePostString, iterativePostString); 
 		
 		tree = createFourLevelBinaryTree(); 
-		tree.prettyPrint(3, System.out);
 		recursivePostString = BinaryTree.inOrderTraversalRecursive(tree);  
 		iterativePostString = BinaryTree.inOrderTraversalIterative(tree); 
 		assertEquals(recursivePostString, iterativePostString); 
@@ -356,6 +355,7 @@ public class BinaryTreeTest {
 
 	
 	
+	
 	@Test 
 	public void testTreeMaxHeight(){
 		
@@ -383,6 +383,73 @@ public class BinaryTreeTest {
 		assertEquals(expected, actual);   
 	}
 
+	
+	
+	
+	@Test
+	public void testRecursivePopulateNextRights(){
+		
+		BinaryTree tree = createTwoLevelBinaryTree();  
+		BinaryTree.recursivePopulateNextRights(tree);
+		String actualTraversal   = retrieveNextRightString(tree); 
+		String expectedTraversal = "5;7;"; 
+		assertEquals(actualTraversal, expectedTraversal);  
+
+		
+		tree = createThreeLevelBinaryTree();   
+		BinaryTree.recursivePopulateNextRights(tree); 
+		actualTraversal   = retrieveNextRightString(tree); 
+		expectedTraversal = "10;5 15;1 8 17;"; 
+		assertEquals(actualTraversal, expectedTraversal); 
+		
+		
+		tree = createFourLevelBinaryTree();  
+		BinaryTree.recursivePopulateNextRights(tree); 
+		actualTraversal   = retrieveNextRightString(tree); 
+		expectedTraversal = "5;3 25;2 4 11;19 20;"; 
+		assertEquals(actualTraversal, expectedTraversal); 		
+		
+		
+		tree = createFiveLevelBinaryTree();  
+		BinaryTree.recursivePopulateNextRights(tree); 
+		actualTraversal   = retrieveNextRightString(tree); 
+		tree.prettyPrint(3, System.out);
+		expectedTraversal = "5;7 8;9 10 11 12;13 14 19 20;37 50;87;"; 
+		assertEquals(actualTraversal, expectedTraversal); 
+		
+		
+	}
+	
+	
+	
+	protected String retrieveNextRightString(BinaryTree tree){
+		
+		StringBuilder builder = new StringBuilder(); 
+		BinaryTree currRoot=tree, nextRoot=null ; 
+		
+		while(currRoot!=null){
+			
+			BinaryTree nextRight = currRoot ; 
+			
+			// horizontal scan 
+			while(nextRight!=null){
+				builder.append(nextRight.value + (nextRight.nextRight==null?";":" "));  
+				if(nextRoot==null){
+					if(nextRight.left!=null)
+						nextRoot = nextRight.left;
+					else if(nextRight.right!=null)
+						nextRoot = nextRight.right ; 
+				}
+				nextRight = nextRight.nextRight;
+			}		
+			
+			// initialize for next level 
+			currRoot = nextRoot ; 
+			nextRoot = null ; 
+		}
+		return builder.toString();
+	}
+	
 	
 	
 	

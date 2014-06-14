@@ -26,8 +26,10 @@ public class BinaryTree {
 	
 	public int value ; 
 	public BinaryTree left, right ; 
-	public static String nodeSeparator = " " ; 
+	public BinaryTree nextRight ;  // defined as the next node in the same level 
 	
+	
+	public  static String nodeSeparator = " " ; 
 	private static int fieldWidth 		= 6 ; 
 	private static int leafNodeDistance = 6 ; 
 
@@ -37,9 +39,7 @@ public class BinaryTree {
 		this.left  = null ; 
 		this.right = null ; 
 	}
-	
- 
-	
+		
 	public int size(){
 
 		// the base case 
@@ -886,13 +886,6 @@ public class BinaryTree {
 	}
 		
 	
-
-	
-	
-	
-	
-	
-	
 	
 	////////////////////////////////////////////////////////////////////////////////////////
 	///////////////  Tree Serialization 
@@ -996,8 +989,7 @@ public class BinaryTree {
 	
 	
 	
-	
-	
+
 	/**
 	 *  Read an integer from the given FileInputStream 'inStream' 
 	 *  If the stream reaches its end, returns -1; 
@@ -1079,7 +1071,6 @@ public class BinaryTree {
 		return tree; 
      } 
      
-     
     
      public static BinaryTree deserializeBinaryTree(Scanner scanner){
     	 
@@ -1093,10 +1084,105 @@ public class BinaryTree {
 				tree.right = deserializeBinaryTree(scanner); 
 			}
     	} 
-		
 		return tree ; 
      }
      
+    
      
+ 	////////////////////////////////////////////////////////////////////////////////////////
+ 	///////////////  Populating the next right fields 
+ 	//////////////////////////////////////////////////////////////////////////////////////// 
      
+    /**
+     *  Problem:  Populating next right pointers in each node  
+     *    http://leetcode.com/2010/03/first-on-site-technical-interview.html    
+     *    
+     *  Observations: 
+     *  (1) Most likely this can be implemented recursively, because 
+     *      you can identify the linking of nodes as sub-problems.
+     *  (2) The main difficulty of this problem is linking rightChild 
+     *      with the nextSibling of rightChild.
+     *  (3) Each node has no parent pointer. Therefore, there is no way
+     *      linking the rightChild with its nextSibling at a level.
+     *    
+     *  Breadth-First Search(BFS) is natural solution however it requires 
+     *  additional memory to store the nodes. 
+     *  
+     *  KEY IDEA: 
+     *   The key to this recursive solution is to use already-populated 
+     *   "nextRight" fields 
+     *  
+     *  NOTES: 
+     *   This implementation can definitely work on complete binary trees. The
+     *   concept of "nextRight" field is not defined properly in this question
+     *   for incomplete binary trees. For example, if one node contains a non-null
+     *   left and null right, should the 'left' child connects to the first non-null
+     *   node at the same level? 
+     *  
+     *   For example, 
+     *  
+     *            + ------- 9 ------ + 
+     *       +--- 7 --- +     +----- 10 -----+
+     *       8                11             12
+     *       
+     *   Should 8 be connected to 11?   Current implementation connects them.   
+     *       
+     * @param root
+     */
+    public static void recursivePopulateNextRights(BinaryTree root){
+    	
+    	// handle the exception 
+    	if(root==null)
+    		return; 
+    	
+    	// handle the base case 
+    	if(root.left == null && root.right==null)
+    		return; 
+    	
+    	// handle the recursion, namely setting the field for both 
+    	// the left and right child 
+    	if(root.right!=null){
+        	if(root.left!=null) // link 'left' with 'right' if 'right' is not null  
+        		root.left.nextRight = root.right; 
+    		root.right.nextRight = getNextNotNullRightAtTheSameLevel(root.nextRight); 
+    	}else{
+    		// link 'left' with the first non-null node in the same level  
+    		if(root.left!=null){ 
+    			root.left.nextRight = getNextNotNullRightAtTheSameLevel(root.nextRight); 
+    		}
+    	} 	
+    	recursivePopulateNextRights(root.left); 
+    	recursivePopulateNextRights(root.right); 
+    }
+     
+    
+    
+    /**
+     *  Scan from left to right, at both the parent and child level
+     *  The purpose is to find the first non-null child node at the
+     *  same level as nextRightParent's left or right 
+     * 
+     * @param nextRightParent
+     * @return
+     */
+    protected static BinaryTree getNextNotNullRightAtTheSameLevel(BinaryTree nextRightParent){
+    	
+		BinaryTree nextRightChild=null; 
+
+		while(nextRightParent!=null){
+			if(nextRightParent.left!=null){
+				nextRightChild = nextRightParent.left; 
+				break; 
+			}else if (nextRightParent.right!=null){
+				nextRightChild = nextRightParent.right;
+				break; 
+			}
+			nextRightParent = nextRightParent.nextRight; 
+		} 
+		return nextRightChild ; 
+    }
+    
+    
+       
+    
 }
