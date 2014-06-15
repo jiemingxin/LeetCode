@@ -18,7 +18,6 @@ package tutorials.strings;
  *
  */
 
-
 public class MaxPalindromicSubstring {
 
 	
