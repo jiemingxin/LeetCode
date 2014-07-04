@@ -93,5 +93,47 @@ public class MaxPalindromicSubstringTest {
 	}
 	
 	
+	@Test
+	public void testLinearSearchCase1() {
+		
+		String source = "abba" ; 
+		String actual = MaxPalindromicSubstring.linearSearch(source); 
+		String expected = "abba" ; 	
+		assertEquals(actual, expected); 
+	}
+	
+	
+	@Test
+	public void testLinearSearchCase2() {
+		
+		String source = "ababa" ; 
+		String actual = MaxPalindromicSubstring.linearSearch(source); 
+		String expected = "ababa" ; 	
+		assertEquals(actual, expected); 
+	}
+	
+	
+	
+	@Test
+	public void testLinearSearchCase3() {
+		
+		String source = "abcdef" ; 
+		String actual = MaxPalindromicSubstring.linearSearch(source); 
+		String expected = "a" ; 	
+		assertEquals(actual.length(), expected.length()); 
+	}
+	
+	
+	
+	@Test
+	public void testLinearSearchCase4() {
+		
+		String source = "a" ; 
+		String actual = MaxPalindromicSubstring.linearSearch(source); 
+		String expected = "a" ; 	
+		assertEquals(actual.length(), expected.length()); 
+	}
+	
+	
 	
 }

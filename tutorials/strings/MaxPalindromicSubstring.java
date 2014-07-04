@@ -115,8 +115,109 @@ public class MaxPalindromicSubstring {
 
 	
 	
+	/**
+	 *  
+	 *  Solution III： The Manacher Algorithm 
+	 *    
+	 *  The key of this algorithm are listed as follows:
+	 *  (1) String conversion:
+	 *      "#" is inserted between characters in the source string. For example, 
+	 *      "abc" --> "#a#b#c#". Let the converted string be S. The benefit of doing
+	 *      is that if we expand from position i at the converted string to S[i-d,i+d], 
+	 *      then we can know that 'd' is the length of the palindrome
+	 *      
+	 *  (2) Length calculation:
+	 *      We keep an array P, where P[i] stores the length of the maximum palindromic 
+	 *      substring centered at S[i]. To populate P, we use the following variables: 
+	 *       "center" (the center of current palindrome), and "right" (the inclusive right 
+	 *       boundary of current palindrome),
+	 *       
+	 *       Each time we calculate P[i], we first check the value of its symmetric character
+	 *       P[i']. There are two possible cases:
+	 *       
+	 *        I) R - i > P[i']: it means the right boundary of the palindrome centered S[i] 
+	 *        is smaller than R
+	 *          ==> there cannot be a palindrome centered at S[i] whose length is longer 
+	 *          	than P[i']
+	 *          ==> we set P[i] as P[i']
+	 *        II) R -i <= P[i']: it means that according to the symmetric property of 
+	 *              a palindrome, the right boundary of the palindrome centered at S[i] 
+	 *             could expand beyond R
+	 *          ==> we need to compare characters from both sides of S[i] in order to 
+	 *               determine P[i']
+	 *          
+	 *   We can keep track of the longest palindrome when we populate the P array.
+	 *     
+	 *   Some corner cases:
+	 *   (1) i' <= 0 ==> P[i] starts from 0 
+	 *               ==> we need to compare characters
+	 *   (2) left and right are out of boundary
+	 */
+	public static String linearSearch(String source){
+	
+		String processed = preProcess(source); 
+		int strLen = processed.length(); 
+		int[] P = new int[strLen]; 
+		int center=0, right=0;  
+		
+		for(int i=0; i<strLen; i++){
+			
+			// check the value at the mirror element 
+			int i_mirror = center - (i-center);
+			if(i_mirror <0)
+				P[i] = 0; 
+			else 
+				P[i] = (right > i ? Math.min(P[i_mirror], right-i):0);
+				
+			// always need to expand the string 
+			int l = i - P[i] - 1; 
+			int r = i + P[i] + 1; 
+			while(true){
+				if(l<0 || r>=strLen)
+					break ; 
+				if(processed.charAt(l)==processed.charAt(r))
+					P[i]++; 
+				else
+					break ; 
+				l--; r++; 
+			}
+			
+			// update the center and boundary if current 
+			// palindrome expand past "right" 
+			if( i+P[i] > right){
+				center = i; 
+				right = i+ P[i]; 
+			}
+		}
+		
+		//caluclate the max palindromic substring 
+		int maxLen=-1, centerIndex=0; 
+		for(int i=0; i<strLen; i++)
+		{
+			if(P[i] > maxLen){
+				maxLen = P[i]; 
+				centerIndex = i; 
+			}
+		}
+
+		int startIdx = (centerIndex-maxLen)>>1; 
+		int endIdx = startIdx + maxLen ; 
+		return source.substring(startIdx, endIdx); 
+	}
 	
 	
+	
+	protected static  String preProcess(String source){
+			
+		int strLen = (source.length() << 1) + 1; 
+		char[] converted = new char[strLen]; 
+		
+		for(int i=0; i<strLen-1; i++){
+			converted[i] = (i%2==0)? '#': source.charAt(i>>1); 
+		}
+		converted[strLen-1] = '#' ; 
+		return new String(converted); 
+	}
 	
 	
 }
