@@ -144,7 +144,8 @@ public class MaxPalindromicSubstring {
 	 *              a palindrome, the right boundary of the palindrome centered at S[i] 
 	 *             could expand beyond R
 	 *          ==> we need to compare characters from both sides of S[i] in order to 
-	 *               determine P[i']
+	 *               determine P[i]
+	 *          ==> P[i] can be initialized as R-i
 	 *          
 	 *   We can keep track of the longest palindrome when we populate the P array.
 	 *     
