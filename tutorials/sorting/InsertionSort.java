@@ -14,7 +14,6 @@ package tutorials.sorting;
  * @author Endeavour
  *
  */
-
 public class InsertionSort {
 
 
