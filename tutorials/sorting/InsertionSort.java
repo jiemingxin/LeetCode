@@ -19,17 +19,44 @@ public class InsertionSort {
 
 	public static void sort(int[] arr){
 		
-		for(int i=1;  i<arr.length;  i++){  // insert from the 2nd element 
-			int x = arr[i]; // x is the element to insert 
-			int j = i; 
-			while( j>0 && arr[j-1] > x ){ //  swap if necessary 
-				arr[j] = arr[j-1]; 
-				j--;
-			}
-			arr[j] = x ; 
-		}
+//		for(int i=1;  i<arr.length;  i++){  // insert from the 2nd element 
+//			int x = arr[i]; // x is the element to insert 
+//			int j = i; 
+//			while( j>0 && arr[j-1] > x ){ //  swap if necessary 
+//				arr[j] = arr[j-1]; 
+//				j--;
+//			}
+//			arr[j] = x ; 
+//		}
+		
+		sort(arr, 0, arr.length-1); 
 	}
 	
 	
+	
+	/**
+	 *  Use insertion sort to sort arr[begin, end] 
+	 * 
+	 * @param arr
+	 * @param begin
+	 * @param end
+	 */
+	protected static void sort(int[] arr, int begin, int end){
+	
+		if(begin < end){
+			
+			for(int i=begin+1;  i<=end;  i++){
+				int x = arr[i]; 
+				int j = i; 
+				while(j>begin && arr[j-1]>x){
+					arr[j] = arr[j-1]; 
+					j--; 
+				}
+				arr[j] = x ; 
+			}
+			
+		}
+	}
+		
 	
 }
