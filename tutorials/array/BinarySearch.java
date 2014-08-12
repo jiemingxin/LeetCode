@@ -1,12 +1,15 @@
 package tutorials.array;
 
 /**
- *  This class implements the basic version of binary search 
+ * 
+ * Problem:
+ *    Search for a key value in a sorted array 
+ * Assumption:
+ *    There is no duplicates in the sorted array 
  * 
  * @author Endevour 
  *
  */
-
 public class BinarySearch {
 
 	/**
@@ -37,6 +40,39 @@ public class BinarySearch {
 		return -1; 
 	}
 	
+	
+	
+	/**
+	 *  A neater implementation of iterative binary search 
+	 *  In this implementation, we only need one comparison
+	 *  in the while loop 
+	 * 
+	 * @param arr
+	 * @param key
+	 * @return
+	 */
+	 public static int iterativeSearchNeat(int[] arr, int key){
+		 
+		 // NOTE: "hi" is initialised as the length of the array
+		 // In this implementation we don't need to access arr[hi]
+		 int lo=0, hi=arr.length; 
+		 
+		 // the while loop converges to the point where "hi" and "lo"
+		 // point to two consecutive elements 	 						    
+		 while(hi-lo>1){
+			 
+			 int mid = lo+ (hi-lo)/2; 
+			 if(arr[mid] <= key )  // only one comparison 
+				 lo = mid; 
+			 else  
+				 hi = mid ; 
+		 }
+		 
+		 // we need one more comparison here 
+		 // once we reach here, we know the invariant always stands
+		 //  arr[lo] <= key and arr[hi] > key 
+		 return (arr[lo]==key?lo:-1); 
+	 }
 	
 	
 	public static int recursiveSearch(int[] elems, int key){

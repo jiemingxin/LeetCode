@@ -146,6 +146,3 @@ public class kthSmallestElem {
 	}
 }
 	
-	
-	
-

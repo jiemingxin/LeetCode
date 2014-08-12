@@ -4,136 +4,39 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import tutorials.strings.MaxPalindromicSubstring;
+import tutorials.string.MaxPalindromicSubstring;
 
 public class MaxPalindromicSubstringTest {
 
-	@Test
-	public void testNaiveSearchCase1() {
-		
-		String source = "abba" ; 
-		String actual = MaxPalindromicSubstring.naiveSearch(source); 
-		String expected = "abba" ; 	
-		assertEquals(actual, expected); 
+	//@Test
+	public void testFindMaxPalindrome() {
+		fail("Not yet implemented");
 	}
 
-	
 	@Test
-	public void testNaiveSearchCase2() {
+	public void testPreProcess() {
 		
-		String source = "ababa" ; 
-		String actual = MaxPalindromicSubstring.naiveSearch(source); 
-		String expected = "ababa" ; 	
-		assertEquals(actual, expected); 
+		String source ="abc" ; 
+		String expected = "#a#b#c#" ; 
+		String actual   = MaxPalindromicSubstring.preProcess(source);
+		assertEquals(expected,actual); 
+		
+		source ="ab" ; 
+		expected = "#a#b#" ; 
+		actual   = MaxPalindromicSubstring.preProcess(source);
+		assertEquals(expected,actual); 
+		
+		source ="a" ; 
+		expected = "#a#" ; 
+		actual   = MaxPalindromicSubstring.preProcess(source);
+		assertEquals(expected,actual); 
+		
+		source ="abcde" ; 
+		expected = "#a#b#c#d#e#" ; 
+		actual   = MaxPalindromicSubstring.preProcess(source);
+		assertEquals(expected,actual); 
+		
 	}
 	
-	
-	
-	@Test
-	public void testNaiveSearchCase3() {
-		
-		String source = "abcdef" ; 
-		String actual = MaxPalindromicSubstring.naiveSearch(source); 
-		String expected = "a" ; 	
-		assertEquals(actual.length(), expected.length()); 
-	}
-	
-	
-	
-	@Test
-	public void testNaiveSearchCase4() {
-		
-		String source = "a" ; 
-		String actual = MaxPalindromicSubstring.naiveSearch(source); 
-		String expected = "a" ; 	
-		assertEquals(actual.length(), expected.length()); 
-	}
-	
-	
-	
-	@Test
-	public void testDPSearchCase1() {
-		
-		String source = "abba" ; 
-		String actual = MaxPalindromicSubstring.dpSearch(source); 
-		String expected = "abba" ; 	
-		assertEquals(actual, expected); 
-	}
-	
-	
-	@Test
-	public void testDPSearchCase2() {
-		
-		String source = "ababa" ; 
-		String actual = MaxPalindromicSubstring.dpSearch(source); 
-		String expected = "ababa" ; 	
-		assertEquals(actual, expected); 
-	}
-	
-	
-	
-	@Test
-	public void testDPSearchCase3() {
-		
-		String source = "abcdef" ; 
-		String actual = MaxPalindromicSubstring.dpSearch(source); 
-		String expected = "a" ; 	
-		assertEquals(actual.length(), expected.length()); 
-	}
-	
-	
-	
-	@Test
-	public void testDPSearchCase4() {
-		
-		String source = "a" ; 
-		String actual = MaxPalindromicSubstring.dpSearch(source); 
-		String expected = "a" ; 	
-		assertEquals(actual.length(), expected.length()); 
-	}
-	
-	
-	@Test
-	public void testLinearSearchCase1() {
-		
-		String source = "abba" ; 
-		String actual = MaxPalindromicSubstring.linearSearch(source); 
-		String expected = "abba" ; 	
-		assertEquals(actual, expected); 
-	}
-	
-	
-	@Test
-	public void testLinearSearchCase2() {
-		
-		String source = "ababa" ; 
-		String actual = MaxPalindromicSubstring.linearSearch(source); 
-		String expected = "ababa" ; 	
-		assertEquals(actual, expected); 
-	}
-	
-	
-	
-	@Test
-	public void testLinearSearchCase3() {
-		
-		String source = "abcdef" ; 
-		String actual = MaxPalindromicSubstring.linearSearch(source); 
-		String expected = "a" ; 	
-		assertEquals(actual.length(), expected.length()); 
-	}
-	
-	
-	
-	@Test
-	public void testLinearSearchCase4() {
-		
-		String source = "a" ; 
-		String actual = MaxPalindromicSubstring.linearSearch(source); 
-		String expected = "a" ; 	
-		assertEquals(actual.length(), expected.length()); 
-	}
-	
-	
-	
+
 }

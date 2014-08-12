@@ -20,6 +20,12 @@ public class BinarySearchTest {
 		actualIndex = BinarySearch.iterativeSearch(arr, key);  
 		expectedIndex = -1 ;
 		assertEquals(actualIndex, expectedIndex);  
+		
+		key = -1; 
+		actualIndex = BinarySearch.iterativeSearchNeat(arr, key);  
+		expectedIndex = -1 ;
+		assertEquals(actualIndex, expectedIndex);  
+		
 	}
 
 	
@@ -36,21 +42,24 @@ public class BinarySearchTest {
 		actualIndex = BinarySearch.iterativeSearch(arr, key);  
 		expectedIndex = 0 ;
 		assertEquals(actualIndex, expectedIndex);  
+		
+		key = 3; 
+		actualIndex = BinarySearch.iterativeSearchNeat(arr, key);  
+		expectedIndex = 0 ;
+		assertEquals(actualIndex, expectedIndex);  
 	}
 	
 	
 	@Test
 	public void testIterativeSearchBaseCases() {
 		
-		int[] arr = { 3, 5, 7, 8, 11, 19, 20}; 
+		int[] arr = { 3, 5, 7, 8, 8, 19, 20}; 
 		int key = 7; 
 		int actualIndex = BinarySearch.iterativeSearch(arr, key); 
 		int expectedIndex = 2 ; 
 		assertEquals(actualIndex, expectedIndex); 
-		
-		key = 8; 
-		actualIndex = BinarySearch.iterativeSearch(arr, key);  
-		expectedIndex = 3 ;
+
+		actualIndex = BinarySearch.iterativeSearchNeat(arr, key);  
 		assertEquals(actualIndex, expectedIndex);  
 	}
 	
