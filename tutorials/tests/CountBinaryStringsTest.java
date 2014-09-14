@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import tutorials.string.CountBinaryStrings;
+import tutorials.strings.CountBinaryStrings;
 
 public class CountBinaryStringsTest {
 

@@ -126,7 +126,6 @@ public class kthSmallestElem {
 	 */
 	protected static int searchFind(int[] A, int[] B, int k, int p, int q){
 		
-		int m = A.length ; 
 		int n = B.length ; 
 		
 		if( p > q)

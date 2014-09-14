@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import tutorials.string.MaxPalindromicSubstring;
+import tutorials.strings.MaxPalindromicSubstring;
 
 public class MaxPalindromicSubstringTest {
 

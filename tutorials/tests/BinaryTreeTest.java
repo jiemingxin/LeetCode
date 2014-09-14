@@ -23,8 +23,6 @@ public class BinaryTreeTest {
 	}
 	
 	
-	
-	
 	public static BinaryTree createTwoLevelBinaryTree(){
 		
 		BinaryTree root = new BinaryTree(5); 
@@ -449,10 +447,5 @@ public class BinaryTreeTest {
 		}
 		return builder.toString();
 	}
-	
-	
-	
-	
-	
 	
 }

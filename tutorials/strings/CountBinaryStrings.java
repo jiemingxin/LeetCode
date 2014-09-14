@@ -1,4 +1,4 @@
-package tutorials.string;
+package tutorials.strings;
 
 import java.util.ArrayList;
 

@@ -83,4 +83,29 @@ public class MinInRotatedSortedArrayTest {
 		  assertEquals(expectedMin, actualMin); 
 	}
 	
+	
+	 
+	
+	@Test
+	public void testFindMinIntArrayCase9() {
+		  int arr[] =   {2, 2, 2, 2, 2, 2, 2, 2, 0, 1, 1, 2};
+		  int expectedMin = 0; 
+		  int actualMin = MinInRotatedSortedArray.findMin(arr); 
+		  assertEquals(expectedMin, actualMin); 
+	}
+	
+	
+	@Test
+	public void testFindMinIntArrayCase10() {
+		  int arr[] =   {2, 2, 2, 0, 2, 2, 2, 2, 2, 2, 2, 2};
+		  int expectedMin = 0; 
+		  int actualMin = MinInRotatedSortedArray.findMin(arr); 
+		  assertEquals(expectedMin, actualMin); 
+	}
+	
+	
+	
+	
+	
+	
 }

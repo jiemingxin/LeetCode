@@ -208,7 +208,7 @@ public class MaxPalindromicSubstring {
 	
 	
 	
-	protected static  String preProcess(String source){
+	public static  String preProcess(String source){
 			
 		int strLen = (source.length() << 1) + 1; 
 		char[] converted = new char[strLen]; 

@@ -38,20 +38,19 @@ package tutorials.array;
  * Extensions: 
  *   How to handle the duplicates?    
  *  
- *    
  * @author jack
  *
  */
 
 public class MinInRotatedSortedArray {
 
-	
 	public static int findMin(int[] arr){
-		return findMin(arr, 0, arr.length-1); 
+		//return findMin(arr, 0, arr.length-1); 
+		return findMinNeat(arr);
+		
 	}
 	
-	
-	public static int findMin(int[] arr, int lo, int hi){
+	protected static int findMin(int[] arr, int lo, int hi){
 		
 		// corner case 1: the array is sorted 
 		if(arr[lo] < arr[hi])
@@ -62,7 +61,6 @@ public class MinInRotatedSortedArray {
 			return arr[lo]; 
 		
 		int mid = lo + (hi-lo)/2 ; 
-		
 		// check if arr[mid+1] is the minimum 
 		if( mid<hi && arr[mid] > arr[mid+1])
 			return arr[mid+1]; 
@@ -76,5 +74,36 @@ public class MinInRotatedSortedArray {
 		
 		return findMin(arr, mid+1, hi); 
 	}
-						
+	
+	
+	protected static int findMinNeat(int[] arr){
+		
+		int lo=0, hi=arr.length-1; 
+		while(hi-lo>1){
+			
+			int mid = lo +(hi-lo)/2; 
+			
+			// Inside this while loop: 
+			//  It's impossible to have (1) hi=lo+1; (2) hi=lo 
+			//  It's impossible to have mid equals to either hi or lo 
+			//    ( mid==hi => hi=lo; mid==lo => hi-lo<=1 )
+			//  thus it is safe to compare arr[mid] with arr[mid-1] and 
+			//  arr[mid+1] 
+			
+			if(arr[mid-1]>arr[mid])
+				return arr[mid]; 
+			if(arr[mid] > arr[mid+1])
+				return arr[mid+1]; 
+			
+			if(arr[mid] < arr[hi])
+				hi = mid-1; 
+			else
+				lo = mid+1;
+		}
+
+		// Once the code reaches here, we have 
+		// hi=lo+1 or hi=lo(the input is a singular array)	
+		return arr[lo]<arr[hi]?arr[lo]:arr[hi]; 
+	}
+					
 }

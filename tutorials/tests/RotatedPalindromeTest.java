@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import tutorials.string.RotatedPalindrome;
+import tutorials.strings.RotatedPalindrome;
 
 public class RotatedPalindromeTest {
 

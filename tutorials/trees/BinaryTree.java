@@ -28,11 +28,9 @@ public class BinaryTree {
 	public BinaryTree left, right ; 
 	public BinaryTree nextRight ;  // defined as the next node in the same level 
 	
-	
-	public  static String nodeSeparator = " " ; 
-	private static int fieldWidth 		= 6 ; 
-	private static int leafNodeDistance = 6 ; 
-
+	protected static String nodeSeparator = " " ; 
+	protected static int fieldWidth 	  = 6 ; 
+	protected static int leafNodeDistance = 6 ; 
 
 	public BinaryTree(int value){
 		this.value = value ; 
@@ -104,7 +102,6 @@ public class BinaryTree {
 				nodesInNextLevel    = tmp;
 				System.out.println();   
 			}
-				
 		}
 	}
 	
@@ -140,8 +137,9 @@ public class BinaryTree {
 		// print the root node 
 		ArrayList<BinaryTree> nodesAtCurrentLevel = new ArrayList<BinaryTree>(); 
 		nodesAtCurrentLevel.add(this); 
-		ArrayList<BinaryTree> nodesAtNextLevel = printInternalNodes(leadingSpaceLength, sideBarLength, nodeDistance,
-													nodesAtCurrentLevel, outStream);  
+		ArrayList<BinaryTree> nodesAtNextLevel = 
+				printInternalNodes(leadingSpaceLength, sideBarLength, nodeDistance,
+									nodesAtCurrentLevel, outStream);  
 		printBranches(leadingSpaceLength, nodeWidth,  nodeDistance, nodesAtNextLevel, outStream );
 		
 		for(int i=1; i<height; i++)
@@ -292,10 +290,13 @@ public class BinaryTree {
 	    }
 	}
 	
-	
-	
-	
-	
+
+	//////////////////////////////////////////////////////////////////////////////////////// 
+	//// Search for Max Binary Search Tree 
+	////  http://leetcode.com/2010/11/largest-binary-search-tree-bst-in_22.html 
+	////  http://leetcode.com/2010/11/largest-binary-search-tree-bst-in.html 
+	////
+	////////////////////////////////////////////////////////////////////////////////////////  
 	
 	public static BinaryTree findMaxBstSubtreeTopDown(BinaryTree tree)
 	{
@@ -344,8 +345,8 @@ public class BinaryTree {
 	 * @param maxBstSize - the size of the maximum binary tree 
 	 * @return the size of binary tree found under current subtree. Return -1 if no binary tree is found 
 	 * 
-	 * @NOTE: the values of min and max are passed from the callee as it is a bottom-up method. On the other hand, 
-	 *        there is no need to pass any values back from the callee in a top-down method. 
+	 * @NOTE: the values of min and max are passed from the callee as it is a bottom-up method. On 
+	 * 		  the other hand, there is no need to pass any values back from the callee in a top-down method. 
 	 */ 
 	protected static int findMaxBstSubtreeBottomUp(BinaryTree tree, _<Integer> min, _<Integer> max, 
 											_<BinaryTree> maxBst, _<Integer> maxBstSize){
@@ -380,11 +381,9 @@ public class BinaryTree {
 			}
 			return currBstSize ; 
 		}else 
-			return -1; 
-			
+			return -1; 		
 	}
 			
-	
 	
 	public static BinaryTree findMaxBst(BinaryTree tree)
 	{
@@ -398,11 +397,8 @@ public class BinaryTree {
 	}
 	
 	
-	
 	/**
-	 * 
 	 * Search the maximum binary subtree in a given binary tree 
-	 * 
 	 * 
 	 * @param tree  - the given binary tree 
 	 * @param min   - the minimum value passed from by caller 
@@ -450,7 +446,9 @@ public class BinaryTree {
 	}
 			
 	
-	
+	//////////////////////////////////////////////////////////////////////////////////////// 
+	//// Print left and right view 
+	////////////////////////////////////////////////////////////////////////////////////////  
 	/** 
 	 * The left view contains all nodes that are first nodes in their levels. 
 	 */
@@ -494,8 +492,7 @@ public class BinaryTree {
 		System.out.println();  
 	}
 	
-	
-	
+
 	protected static void printRightView(BinaryTree  tree, int level, _<Integer> maxLevel){
 		
 		if( tree == null) // base case  
@@ -509,8 +506,6 @@ public class BinaryTree {
 		printRightView(tree.right, level+1, maxLevel);  
 		printRightView(tree.left,  level+1, maxLevel); 
 	} 
-	
-	
 	
 	
 	public static void printRightViewBottomUp(BinaryTree tree){	
@@ -540,24 +535,20 @@ public class BinaryTree {
 	//////////////////////////////////////////////////////////////////////////////////////// 
 	//// Maximum height 
 	//////////////////////////////////////////////////////////////////////////////////////// 
-	
-	
+
 	/**
 	 * 
 	 * The maximum height of a binary tree is defined as the number of nodes along the 
 	 * path from the root node to the deepest leaf node. Note that the maximum height 
 	 * of an empty tree is 0. 
-	 * 
-	 * 
+	 * 	  
 	 * @param tree
 	 * @return
 	 */
-	
 	public static int maxHeightRecursive(BinaryTree tree){
 		
 		if(tree==null)
 			return 0; 
-		
 		return Math.max( maxHeightRecursive(tree.left), maxHeightRecursive(tree.right) ) + 1; 
 	}
 	
@@ -621,10 +612,7 @@ public class BinaryTree {
 		}
 
 		return maxHeight ; 
-
 	}
-	
-	
 	
 	////////////////////////////////////////////////////////////////////////////////////////
 	///////////////  Tree Traversals 
@@ -648,7 +636,8 @@ public class BinaryTree {
 			else 
 				stringBuilder.append(currNodeStr + nodeSeparator + leftTreeString ); 
 		}else{
-			stringBuilder.append( currNodeStr + nodeSeparator +  leftTreeString +  nodeSeparator +  rightTreeString ); 
+			stringBuilder.append( currNodeStr + nodeSeparator +  leftTreeString +  
+									nodeSeparator +  rightTreeString ); 
 		}
 		return 	stringBuilder.toString(); 		
 	}
@@ -672,7 +661,8 @@ public class BinaryTree {
 			else 
 				stringBuilder.append(leftTreeString + nodeSeparator + currNodeStr); 
 		}else{
-			stringBuilder.append(leftTreeString + nodeSeparator + currNodeStr +  nodeSeparator +  rightTreeString  ); 
+			stringBuilder.append(leftTreeString + nodeSeparator + currNodeStr 
+										+  nodeSeparator  +  rightTreeString  ); 
 		}
 		return 	stringBuilder.toString(); 		
 	}
@@ -698,7 +688,8 @@ public class BinaryTree {
 			else 
 				stringBuilder.append(leftTreeString + nodeSeparator + currNodeStr); 
 		}else{
-			stringBuilder.append(leftTreeString + nodeSeparator + rightTreeString + nodeSeparator + currNodeStr); 
+			stringBuilder.append(leftTreeString + nodeSeparator + rightTreeString 
+					+ nodeSeparator + currNodeStr); 
 		}
 		return 	stringBuilder.toString(); 
 	}
@@ -894,7 +885,6 @@ public class BinaryTree {
 	{
 		FileOutputStream outStream  ; 
 		try{ 
-			
 			outStream = new FileOutputStream( new File(bstFilePath) ); 
 			
 			if(bst == null ){
@@ -910,8 +900,7 @@ public class BinaryTree {
 		}			
 	}
 	
-	
-	
+
 	
 	protected static void serializeBinarySearchTree(BinaryTree bst, FileOutputStream outStream)
 	{
@@ -954,8 +943,6 @@ public class BinaryTree {
 			e.printStackTrace();
 		}
 		return bst ; 	
-		                     
-
 	}
 	
 	
@@ -1181,8 +1168,5 @@ public class BinaryTree {
 		} 
 		return nextRightChild ; 
     }
-    
-    
-       
     
 }
