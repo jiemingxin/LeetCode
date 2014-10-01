@@ -138,8 +138,8 @@ public class BinaryTree {
 		ArrayList<BinaryTree> nodesAtCurrentLevel = new ArrayList<BinaryTree>(); 
 		nodesAtCurrentLevel.add(this); 
 		ArrayList<BinaryTree> nodesAtNextLevel = 
-				printInternalNodes(leadingSpaceLength, sideBarLength, nodeDistance,
-									nodesAtCurrentLevel, outStream);  
+				printInternalNodes(leadingSpaceLength, sideBarLength, nodeDistance, 
+						nodesAtCurrentLevel, outStream);  
 		printBranches(leadingSpaceLength, nodeWidth,  nodeDistance, nodesAtNextLevel, outStream );
 		
 		for(int i=1; i<height; i++)

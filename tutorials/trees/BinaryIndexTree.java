@@ -62,16 +62,16 @@ public class BinaryIndexTree {
 	
 	
 	/**
-	 * Add the given value to the accumulative frequency for F[1..idx], which
-	 * will affect any accumulative frequency covering this range. 
+	 * Add the given value to the accumulative frequency for F[idx], which
+	 * will affect any accumulative frequency covering this value
 	 * 
 	 * @param idx - the inclusive index for the accumulative index. 
-	 * @param val - the given value 
+	 * @param val - the increment value 
 	 */
-	public void updateCumFreq(int idx, int val){
+	public void updateCumFreq(int idx, int incr){
 		
 		while(idx <= maxValue){
-			treeFreqs[idx] += val; 
+			treeFreqs[idx] += incr; 
 			idx += (idx&-idx);
 		}
 	}

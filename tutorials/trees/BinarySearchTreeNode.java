@@ -10,11 +10,11 @@ public class BinarySearchTreeNode extends BinaryTree {
 	}
 				
 	public BinarySearchTreeNode left(){ 
-		return (BinarySearchTreeNode) left; 
+		return left==null?null:(BinarySearchTreeNode) left; 
 	};
 	
 	public BinarySearchTreeNode right(){ 
-		return (BinarySearchTreeNode) right; 
+		return right==null?null:(BinarySearchTreeNode) right; 
 	};
 	
 	public BinarySearchTreeNode parent(){ 
@@ -34,6 +34,7 @@ public class BinarySearchTreeNode extends BinaryTree {
 		this.parent = parent; 
 	}
 	
+		
 	//////////////////////////////////////////////////////////////
 	/// Search in Binary Search Tree Node 
 	//////////////////////////////////////////////////////////////
@@ -72,7 +73,7 @@ public class BinarySearchTreeNode extends BinaryTree {
 		if(node==null || value==node.value) // an exact match is found 
 			return node; 
 				
-		if(value < node.value) // the floor value could only exist in node.left subtree 
+		if(value < node.value) // the floor value must not be bigger than the given value 
 			return BinarySearchTreeNode.floor(value, node.left()); 
 		
 		// value < node.value --> the floor value may be in the right subtree or 
@@ -89,7 +90,7 @@ public class BinarySearchTreeNode extends BinaryTree {
 		if(node==null || value==node.value) // an exact match is found 
 			return node; 
 				
-		if(node.value < value ) // the ceiling value could only exist in node.right subtree 
+		if(node.value < value ) // the ceiling value must not be smaller than the given value 
 			return BinarySearchTreeNode.ceil(value, node.right()); 
 		
 		// value < node.value --> the ceiling value may be in the left subtree or
@@ -116,11 +117,13 @@ public class BinarySearchTreeNode extends BinaryTree {
 				node = node.right(); 
 		}
 		
-		// insert into the parent node 
-		if(value<parent.value)
-			parent.left = new BinarySearchTreeNode(value, parent) ;
-		else
-			parent.right = new BinarySearchTreeNode(value, parent) ; 		
+		// insert into the parent node if found 
+		if(parent!=null){
+			if(value<parent.value)
+				parent.left = new BinarySearchTreeNode(value, parent) ;
+			else
+				parent.right = new BinarySearchTreeNode(value, parent) ; 
+		}
 	}
 	
 	
@@ -128,32 +131,36 @@ public class BinarySearchTreeNode extends BinaryTree {
 	/// Min and Max in Binary Search Tree Node 
 	//////////////////////////////////////////////////////////////
 
-	public static BinarySearchTreeNode min(BinarySearchTreeNode node){
+	public BinarySearchTreeNode min(){
 		
+		BinarySearchTreeNode node = this; 
 		while(node.left()!=null) // reach the most left node  
 			node = node.left();	
 		return node ; 
 	}
 		
-	public static BinarySearchTreeNode max(BinarySearchTreeNode node){
+	
+	public BinarySearchTreeNode max(){
 		
+		BinarySearchTreeNode node = this; 
 		while(node.right()!=null) // reach the most right node 
 			node = node.right();	
 		return node;  		
 	}
 
 	
+	
 	//////////////////////////////////////////////////////////////
 	/// Successor and predecessor in terms of in order traversal
 	//////////////////////////////////////////////////////////////
 
-	public static BinarySearchTreeNode successor(BinarySearchTreeNode node){
+	public BinarySearchTreeNode successor(){
 		
-		if(node.right()!=null)  
-			return min( node.right() ); 
+		if(right()!=null)  
+			return right().min(); 
 		
 		// look for the first ascendant upwards which has a left child  
-		BinarySearchTreeNode ret = node.parent, curr=node; 
+		BinarySearchTreeNode ret = parent(), curr=this; 
 		while( ret!=null && curr==ret.right){ // stops when ret is null or node=ret.left  
 			curr = ret ; 
 			ret  = curr.parent ; 
@@ -162,13 +169,14 @@ public class BinarySearchTreeNode extends BinaryTree {
 	}
 	
 	
-	public static BinarySearchTreeNode predecessor(BinarySearchTreeNode node){
+	
+	public BinarySearchTreeNode predecessor(){
 		
-		if(node.left()!=null)
-			return max( node.left()); 
+		if(left()!=null)
+			return left().max(); 
 		
 		// look for the first descendant upwards which has a right child 
-		BinarySearchTreeNode ret=node.parent, curr=node; 
+		BinarySearchTreeNode ret=parent(), curr=this; 
 		while( ret!=null && curr==ret.left){
 			curr = ret; 
 			ret = curr.parent; 

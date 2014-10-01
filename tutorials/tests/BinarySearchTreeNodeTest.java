@@ -82,8 +82,8 @@ public class BinarySearchTreeNodeTest {
 				maxVal = Math.max(value, maxVal); 
 			}
 			
-			assertEquals(minVal, BinarySearchTreeNode.min(root).value); 
-			assertEquals(maxVal, BinarySearchTreeNode.max(root).value); 
+			assertEquals(minVal, root.min().value); 
+			assertEquals(maxVal, root.max().value); 
 		}		
 	}
 
@@ -105,8 +105,8 @@ public class BinarySearchTreeNodeTest {
 			
 			for(int j=0; j<arrLen;j++){
 				int value = rands[j];
-				//BinarySearchTreeNode floor = BinarySearchTreeNode.floor(value+1, root);
-				//assertEquals(value, floor.value); 
+				BinarySearchTreeNode floor = BinarySearchTreeNode.floor(value+1, root);
+				assertEquals(value, floor.value); 
 				
 				BinarySearchTreeNode ceil = BinarySearchTreeNode.ceil(value-1, root);
 				assertEquals(value, ceil.value); 
@@ -144,7 +144,7 @@ public class BinarySearchTreeNodeTest {
 			for(int j=0; j<arrLen-1; j++){
 				int value = rands[j]; 
 				BinarySearchTreeNode node = BinarySearchTreeNode.search(value, root); 
-				assertEquals(rands[j+1], BinarySearchTreeNode.successor(node).value); 
+				assertEquals(rands[j+1], node.successor().value); 
 			}
 
 		}		
@@ -180,7 +180,7 @@ public class BinarySearchTreeNodeTest {
 				int value = rands[j]; 
 				//print.println("Current =" + value);
 				BinarySearchTreeNode node = BinarySearchTreeNode.search(value, root); //always return the shallowest key 
-				assertEquals(rands[j-1], BinarySearchTreeNode.predecessor(node).value); 
+				assertEquals(rands[j-1], node.predecessor().value); 
 			}
 
 		}		

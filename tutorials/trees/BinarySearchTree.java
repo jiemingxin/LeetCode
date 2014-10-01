@@ -76,8 +76,10 @@ public class BinarySearchTree {
 		}else if (node.right()==null){
 			transplant(node, node.left());
 		}else{
-			BinarySearchTreeNode successor = BinarySearchTreeNode.min(node.right()); 
+			BinarySearchTreeNode successor = node.successor(); 
 			if(successor.parent() != node){ // update the successor's right child 
+				                            // the reason for the checking is that the 'successor' 
+				                            // will be the parent for node.right. 
 				transplant(successor, successor.right());
 				successor.setRight(node.right()); 
 				successor.right().setParent(successor); 
