@@ -1,6 +1,6 @@
 package tutorials.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
 
 import java.io.PrintStream;
 import java.util.Arrays;
@@ -8,7 +8,6 @@ import java.util.Arrays;
 import org.junit.Test;
 
 import tutorials.array.CountSmallerElems;
-import tutorials.trees.AVLTree;
 import tutorials.utils.RandArray;
 
 public class CountSmallerElemsTest {

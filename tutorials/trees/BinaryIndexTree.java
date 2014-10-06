@@ -72,6 +72,8 @@ public class BinaryIndexTree {
 		
 		while(idx <= maxValue){
 			treeFreqs[idx] += incr; 
+			if(idx==0) // an corner case 
+				break ; 
 			idx += (idx&-idx);
 		}
 	}
@@ -98,7 +100,7 @@ public class BinaryIndexTree {
 	
 	
 	/**
-	 *  Return an index having the given accumulative frequency value
+	 *  Return an index that have exactly the given cumulative frequency value
 	 * 
 	 * @param freq
 	 * @return
@@ -124,6 +126,33 @@ public class BinaryIndexTree {
 	}
 	
 
+	/**
+	 *  Return the lowest index that has the cumulative value larger
+	 *  than the given cumulative frequency value 
+	 * 
+	 * @param cumFreq
+	 * @return
+	 */
+	public int findLowestIndex(int cumFreq){
+		
+		int bitMask = highestBit(maxValue); 
+		int freq = cumFreq; 
+		int idx = maxValue ; 
+		
+		while(bitMask!=0 && idx >=1){
+		
+			int treeIdx = idx - bitMask ; 
+			if( freq <= treeFreqs[treeIdx])
+				idx = treeIdx ; 
+			else 
+				freq -= treeFreqs[treeIdx]; 
+			bitMask >>= 1; 
+		}
+				
+		return idx ; 
+	}
+
+	
 	protected int highestBit(int value){
 		
 		if(value==0)
