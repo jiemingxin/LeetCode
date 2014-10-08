@@ -20,8 +20,8 @@ package tutorials.array;
  *   still to merge k numbers at a time, but we want to use a data structure
  *   to retrieve the minimum values efficiently. Heap is a good option. 
  *   The size of the heap is set to k, which give rise to the time complexity
- *   of O(logk) to retrieve the minimum value. Accordingly the total time 
- *   complexity is O(nklogk). 
+ *   of O(logk) to calculate the minimum value. And there are n*k elements in total.
+ *   Accordingly the total time complexity is O(nklogk). 
  * 
  * @author jack
  *

@@ -23,6 +23,7 @@ public class CountingSort {
 	
 	public static void sort(int[] arr){
 		
+		// locate the range 
 		int max=Integer.MIN_VALUE, min=Integer.MAX_VALUE;
 		for(int i=0; i<arr.length; i++){
 			max = Math.max(max, arr[i]);
@@ -47,7 +48,8 @@ public class CountingSort {
 		
 		for(int i=arrLen-1; i>=0; i--){
 			// (1) note: need to subtract 1 from the counts to locate
-			//     the actual index, since the index starts from 0
+			//     the actual index, since the index starts from 0 and 
+			//     the counts array starts with value 1 ( the count of min value) 
 			//     whereas counting sort cares about nonzero counts 
 			// (2) need to populate the sorted array backwards to 
 			//     ensure stability 

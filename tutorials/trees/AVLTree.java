@@ -316,6 +316,15 @@ public class AVLTree {
 	}	
 	
 	
+	public AVLTreeNode floor(int value){
+		return (AVLTreeNode) BinarySearchTreeNode.floor(value, root); 
+	}
+	
+	
+	public AVLTreeNode ceil(int value){
+		return (AVLTreeNode) BinarySearchTreeNode.ceil(value, root); 
+	}
+	
 	//////////////////////////////////////////////////////////////
 	/// Displaying operations 
 	//////////////////////////////////////////////////////////////
