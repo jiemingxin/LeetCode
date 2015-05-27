@@ -76,6 +76,9 @@ public class BinarySearchTree {
 		}else if (node.right()==null){
 			transplant(node, node.left());
 		}else{
+			
+			// the successor is actually node.right.min(). Note it does not 
+			// have a left child 
 			BinarySearchTreeNode successor = node.successor(); 
 			if(successor.parent() != node){ // update the successor's right child 
 				                            // the reason for the checking is that the 'successor' 
@@ -84,7 +87,8 @@ public class BinarySearchTree {
 				successor.setRight(node.right()); 
 				successor.right().setParent(successor); 
 			}
-			// update the successor's left child 
+			
+			// update node.left() to be successor's left() 
 			transplant(node, successor); 
 			successor.setLeft(node.left()); 
 			successor.left().setParent(successor); 

@@ -16,6 +16,9 @@ public class AVLTree {
 	
 	//////////////////////////////////////////////////////////////
 	/// Rotating operations 
+	///  NOTE: the current node is always the parent node of the pivot 
+	/// in the rotation 
+	///
 	//////////////////////////////////////////////////////////////
 	/**
 	 *  The meaning of left rotation: the node to be rotated (Node) 
@@ -149,7 +152,7 @@ public class AVLTree {
 	public void recursiveBalance(AVLTreeNode node){
 		
 		node.setBalance(); 
-		int balance = node.getBalance(); 
+		int balance = node.getBalance(); // right - left 
 		if(balance==-2){  // left tree is deeper 
 			AVLTreeNode leftGrandChild  = node.left().left();  // they can be null 
 			AVLTreeNode rightGrandChild = node.left().right(); 
