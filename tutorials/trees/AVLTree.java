@@ -43,7 +43,7 @@ public class AVLTree {
 		if(t!=null)
 			t.setParent(node); 
 		
-		// update pivot's parent 
+		// update pivot's parent £¬  the following sections can be replaced by transplant(node, pivot); 
 		AVLTreeNode parent = node.parent(); 
 		pivot.setParent(parent);
 		if(parent==null)

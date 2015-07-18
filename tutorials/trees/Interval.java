@@ -42,12 +42,30 @@ public class Interval implements Comparable<Interval> {
         // other and 0 if they are supposed to be equal
 		if( low < interval.low )
 			return -1; 
-		
 		if( low == interval.low)
 			return 0; 
-		
 		return 1;
 	}
 	
+	
+	
+	@Override
+	public int hashCode(){
+		return 17*low + 31*high ; 
+	}
+	
+	
 
+	@Override
+	public boolean equals(Object obj){
+		
+		if (!(obj instanceof Interval))
+			return false;
+		if (obj == this)
+			return true;
+		
+		Interval interval = (Interval) obj; 
+		return low == interval.low && high == interval.high ;
+	}
+	
 }

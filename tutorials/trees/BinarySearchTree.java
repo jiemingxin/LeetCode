@@ -48,6 +48,7 @@ public class BinarySearchTree {
 		if(u==null) // undefined 
 			return; 
 		
+		// set the child link for the parent 
 		if(u.parent==null){     
 			root = v; 
 		}else if( u==u.parent.left)
@@ -55,6 +56,7 @@ public class BinarySearchTree {
 		else 
 			u.parent.right=v; 
 		
+		// set the parent link for the child 
 		if(v!=null)
 			v.parent = u.parent; 
 	}
