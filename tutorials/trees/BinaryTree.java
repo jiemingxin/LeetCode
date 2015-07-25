@@ -878,6 +878,56 @@ public class BinaryTree {
 		
 	
 	
+	
+	/**
+	 *  In order traversal using threaded tree
+	 *   
+	 *  The space complexity of this algorithm is O(1) as it utilises 
+	 *  the NULL pointers in the tree node 
+	 *   
+	 *  The essence of this algorithm is to link the node whose right 
+	 *  is null to its in order successor. 
+	 *  
+	 * 
+	 * @param root - the root of the binary tree  
+	 * @return
+	 */
+	public static String inOrderTraversalThreadedTree(BinaryTree root){
+	
+		StringBuilder ret = new StringBuilder();
+		BinaryTree curr = root ; 
+		
+		while(curr!=null){
+			
+			if(curr.left == null){
+				if(ret.length()!= 0)
+					ret.append(nodeSeparator + curr.value);
+				else 
+					ret.append(curr.value);
+				curr = curr.right ; 
+			}else{
+				BinaryTree pred = curr.left ; 
+				while(pred.right!=null && pred.right!=curr)
+					pred = pred.right; 
+				
+				if(pred.right==null){  // they are threaded before the traversal of left 
+					pred.right = curr ;   
+					curr = curr.left; 
+				}else{
+					pred.right = null; // they are disconnected when finishing the 
+									   // traversal of left 
+					if(ret.length()!= 0)
+						ret.append(nodeSeparator + curr.value);
+					else 
+						ret.append(curr.value);
+					curr = curr.right; 
+				}			
+			}	
+		}
+		return ret.toString(); 
+	}
+	
+	
 	////////////////////////////////////////////////////////////////////////////////////////
 	///////////////  Tree Serialization 
 	//////////////////////////////////////////////////////////////////////////////////////// 

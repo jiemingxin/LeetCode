@@ -230,6 +230,34 @@ public class BinaryTreeTest {
 	}
 	
 	
+	
+	@Test
+	public void testInOrderThreadedTraversal(){
+		
+		BinaryTree tree = createTwoLevelBinaryTree(); 
+		String expected = BinaryTree.inOrderTraversalRecursive(tree);  
+		String actual = BinaryTree.inOrderTraversalThreadedTree(tree); 
+		assertEquals(expected, actual); 
+		
+		tree = createThreeLevelBinaryTree();  
+		expected = BinaryTree.inOrderTraversalRecursive(tree);  
+		actual = BinaryTree.inOrderTraversalThreadedTree(tree); 
+		assertEquals(expected, actual); 
+		
+		tree = createFourLevelBinaryTree(); 
+		expected = BinaryTree.inOrderTraversalRecursive(tree);  
+		actual = BinaryTree.inOrderTraversalThreadedTree(tree); 
+		assertEquals(expected, actual); 
+		
+		tree = createFiveLevelBinaryTree(); 
+		expected = BinaryTree.inOrderTraversalRecursive(tree);  
+		actual = BinaryTree.inOrderTraversalThreadedTree(tree); 
+		assertEquals(expected, actual); 
+	}
+	
+	
+	
+	
 	@Test
 	public void testPostOrderTreeTraversal(){
 		
